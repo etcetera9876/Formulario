@@ -28,17 +28,104 @@ body {
     color: white;
     padding: 40px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 3s infinite;
 }
 
 .form-header h1 {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 10px;
+    animation: titleSlideIn 1.2s ease-out, titleGlow 2s ease-in-out 1.2s infinite alternate;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header h1 i {
+    animation: iconBounce 2s ease-in-out infinite;
+    display: inline-block;
+    margin-right: 15px;
 }
 
 .form-header p {
     font-size: 1.1rem;
     opacity: 0.9;
+    animation: subtitleFadeIn 1.5s ease-out 0.5s both;
+    position: relative;
+    z-index: 2;
+}
+
+/* Partículas de fondo */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(2) {
+    top: 60%;
+    left: 80%;
+    animation-delay: 1s;
+    animation-duration: 7s;
+}
+
+.particle:nth-child(3) {
+    top: 40%;
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(4) {
+    top: 80%;
+    left: 70%;
+    animation-delay: 3s;
+    animation-duration: 6s;
+}
+
+.particle:nth-child(5) {
+    top: 30%;
+    left: 90%;
+    animation-delay: 4s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(6) {
+    top: 70%;
+    left: 30%;
+    animation-delay: 5s;
+    animation-duration: 7s;
 }
 
 /* Contenedor del formulario */
@@ -412,4 +499,95 @@ textarea:focus {
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+/* Animaciones del título */
+@keyframes titleSlideIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+}
+
+@keyframes iconBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes subtitleFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Efecto hover adicional para el título */
+.form-header h1:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.form-header h1:hover i {
+    animation: iconSpin 0.6s ease-in-out;
+}
+
+@keyframes iconSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-10px) translateX(-5px);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translateY(-15px) translateX(15px);
+        opacity: 0.9;
+    }
 } 
