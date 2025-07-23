@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Personalizado</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="form-header">
+            <h1><i class="fas fa-clipboard-list"></i> Formulario Personalizado</h1>
+            <p>Completa el formulario y tus respuestas se guardarán automáticamente en Google Sheets</p>
+        </header>
+
+        <form id="customForm" class="form-container" enctype="multipart/form-data">
+            <!-- Información Personal -->
+            <div class="form-section">
+                <h2><i class="fas fa-user"></i> Información Personal</h2>
+                
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo *</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo Electrónico *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edad">Edad</label>
+                        <input type="number" id="edad" name="edad" min="1" max="120">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="genero">Género</label>
+                        <select id="genero" name="genero">
+                            <option value="">Selecciona una opción</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="otro">Otro</option>
+                            <option value="prefiero-no-decir">Prefiero no decir</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preferencias -->
+            <div class="form-section">
+                <h2><i class="fas fa-heart"></i> Preferencias e Intereses</h2>
+                
+                <div class="form-group">
+                    <label>¿Qué te interesa? (Puedes seleccionar múltiples opciones)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="intereses" value="tecnologia">
+                            <span class="checkmark"></span>
+                            Tecnología
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="intereses" value="deportes">
+                            <span class="checkmark"></span>
+                            Deportes
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="intereses" value="musica">
+                            <span class="checkmark"></span>
+                            Música
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="intereses" value="viajes">
+                            <span class="checkmark"></span>
+                            Viajes
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="intereses" value="cocina">
+                            <span class="checkmark"></span>
+                            Cocina
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="intereses" value="lectura">
+                            <span class="checkmark"></span>
+                            Lectura
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha">Fecha de Nacimiento</label>
+                    <input type="date" id="fecha" name="fecha">
+                </div>
+            </div>
+
+            <!-- Comentarios -->
+            <div class="form-section">
+                <h2><i class="fas fa-comment"></i> Comentarios Adicionales</h2>
+                
+                <div class="form-group">
+                    <label for="comentarios">Comentarios o Sugerencias</label>
+                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Escribe aquí tus comentarios..."></textarea>
+                </div>
+            </div>
+
+            <!-- Subida de Archivos -->
+            <div class="form-section">
+                <h2><i class="fas fa-upload"></i> Subir Archivos</h2>
+                
+                <div class="form-group">
+                    <label for="files">Archivos (máximo 5 archivos, 10MB cada uno)</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="files" name="files" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt">
+                        <div class="file-upload-text">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Arrastra archivos aquí o haz clic para seleccionar</span>
+                        </div>
+                    </div>
+                    <div id="fileList" class="file-list"></div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="form-actions">
+                <button type="button" id="previewBtn" class="btn btn-secondary">
+                    <i class="fas fa-eye"></i> Vista Previa
+                </button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Enviar Formulario
+                </button>
+            </div>
+        </form>
+
+        <!-- Modal de Vista Previa -->
+        <div id="previewModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Vista Previa del Formulario</h2>
+                <div id="previewContent"></div>
+            </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
