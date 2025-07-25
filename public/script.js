@@ -288,6 +288,14 @@ function showEmailSuggestions(emailInput, localPart, domains) {
         suggestion.addEventListener('click', function() {
             emailInput.value = this.textContent;
             suggestionDiv.remove();
+            
+            // Disparar evento input para validar inmediatamente
+            const inputEvent = new Event('input', { bubbles: true });
+            emailInput.dispatchEvent(inputEvent);
+            
+            // También disparar evento blur para asegurar validación
+            const blurEvent = new Event('blur', { bubbles: true });
+            emailInput.dispatchEvent(blurEvent);
         });
         
         suggestionDiv.appendChild(suggestion);
@@ -365,17 +373,34 @@ function validateField(e) {
     // Remover errores previos
     clearFieldError(e);
     
-    // Solo validar formato si hay contenido (no validar campos vacíos en tiempo real)
-    if (field.type === 'email' && value && !isValidEmail(value)) {
-        showFieldError(field, 'Ingresa un email válido');
-        return false;
+    // Si el campo está vacío, no mostrar error en tiempo real
+    if (!value) {
+        return true;
     }
     
-    if (field.type === 'tel' && value && !isValidPhone(value)) {
-        showFieldError(field, 'Ingresa un teléfono válido');
-        return false;
+    // Validar email
+    if (field.type === 'email' && value) {
+        if (!isValidEmail(value)) {
+            // Solo mostrar error si el usuario ha terminado de escribir (blur) o si es muy obvio que está mal
+            if (e.type === 'blur' || (!value.includes('@') || !value.includes('.'))) {
+                showFieldError(field, 'Ingresa un email válido');
+                return false;
+            }
+        }
     }
     
+    // Validar teléfono
+    if (field.type === 'tel' && value) {
+        if (!isValidPhone(value)) {
+            // Solo mostrar error en blur o si es muy obvio que está mal
+            if (e.type === 'blur' || value.replace(/\D/g, '').length < 7) {
+                showFieldError(field, 'Ingresa un teléfono válido');
+                return false;
+            }
+        }
+    }
+    
+    // Validar números
     if (field.type === 'number' && value) {
         const num = parseInt(value);
         if (field.min && num < parseInt(field.min)) {
@@ -446,17 +471,40 @@ function showFieldError(field, message) {
 
 function clearFieldError(e) {
     const field = e.target;
+    
+    // Restaurar estilos del campo
     field.style.borderColor = '#e1e5e9';
     field.style.boxShadow = 'none';
     
-    // Buscar el error en el contenedor padre si está dentro de input-with-button
+    // Buscar y remover todos los errores relacionados con este campo
     const inputContainer = field.closest('.input-with-button');
     const searchContainer = inputContainer ? inputContainer.parentNode : field.parentNode;
     
+    // Buscar errores en el contenedor específico
     const errorDiv = searchContainer.querySelector('.field-error');
     if (errorDiv) {
         errorDiv.remove();
     }
+    
+    // También buscar en el contenedor padre por si acaso
+    const parentErrorDiv = field.parentNode.querySelector('.field-error');
+    if (parentErrorDiv) {
+        parentErrorDiv.remove();
+    }
+    
+    // Buscar en todo el formulario por errores de este campo específico
+    const allErrors = form.querySelectorAll('.field-error');
+    allErrors.forEach(error => {
+        // Si el error está relacionado con este campo, removerlo
+        const fieldName = field.name || field.id;
+        if (error.textContent.includes('email') && fieldName === 'email') {
+            error.remove();
+        } else if (error.textContent.includes('teléfono') && fieldName === 'telefono') {
+            error.remove();
+        } else if (error.textContent.includes('nombre') && fieldName === 'nombre') {
+            error.remove();
+        }
+    });
 }
 
 function isValidEmail(email) {
