@@ -210,6 +210,7 @@ function setupEmailSuggestions(emailInput) {
     ];
     
     let suggestionDiv = null;
+    let isSelectingSuggestion = false;
     
     emailInput.addEventListener('input', function(e) {
         const value = e.target.value;
@@ -231,14 +232,19 @@ function setupEmailSuggestions(emailInput) {
     });
     
     emailInput.addEventListener('blur', function() {
-        // Remover sugerencias al perder el foco con un pequeño delay
-        setTimeout(() => {
-            const existingSuggestions = document.querySelector('.email-suggestions');
-            if (existingSuggestions) {
-                existingSuggestions.remove();
-            }
-        }, 150);
+        // Solo remover sugerencias si no estamos seleccionando una
+        if (!isSelectingSuggestion) {
+            setTimeout(() => {
+                const existingSuggestions = document.querySelector('.email-suggestions');
+                if (existingSuggestions) {
+                    existingSuggestions.remove();
+                }
+            }, 150);
+        }
     });
+    
+    // Exponer la variable para que showEmailSuggestions pueda usarla
+    emailInput.isSelectingSuggestion = false;
 }
 
 function showEmailSuggestions(emailInput, localPart, domains) {
@@ -290,6 +296,9 @@ function showEmailSuggestions(emailInput, localPart, domains) {
             e.preventDefault();
             e.stopPropagation();
             
+            // Marcar que estamos seleccionando una sugerencia
+            emailInput.isSelectingSuggestion = true;
+            
             // Establecer el valor del email
             emailInput.value = this.textContent;
             
@@ -305,6 +314,11 @@ function showEmailSuggestions(emailInput, localPart, domains) {
             
             // Hacer focus en el campo para mejor UX
             emailInput.focus();
+            
+            // Resetear la bandera después de un pequeño delay
+            setTimeout(() => {
+                emailInput.isSelectingSuggestion = false;
+            }, 200);
         });
         
         suggestionDiv.appendChild(suggestion);
