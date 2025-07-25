@@ -392,6 +392,20 @@ textarea.error {
 .date-picker-container input {
     flex: 1;
     cursor: pointer;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 2px solid #e1e5e9;
+    transition: all 0.3s ease;
+}
+
+.date-picker-container input:hover {
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.date-picker-container input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
 .date-picker-btn {

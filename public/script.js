@@ -675,7 +675,6 @@ async function getStats() {
 
 function setupDatePicker() {
     const dateInput = document.getElementById('fechaNacimiento');
-    const datePickerBtn = document.getElementById('datePickerBtn');
     const datePickerModal = document.getElementById('datePickerModal');
     const yearSelector = document.getElementById('yearSelector');
     const monthSelector = document.getElementById('monthSelector');
@@ -684,7 +683,6 @@ function setupDatePicker() {
     const prevYearBtn = document.getElementById('prevYear');
     const nextYearBtn = document.getElementById('nextYear');
     const cancelBtn = document.getElementById('cancelDate');
-    const confirmBtn = document.getElementById('confirmDate');
     
     let currentYear = new Date().getFullYear();
     let selectedYear = null;
@@ -696,8 +694,8 @@ function setupDatePicker() {
         'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
     ];
     
-    // Mostrar modal
-    datePickerBtn.addEventListener('click', function() {
+    // Mostrar modal al hacer click en el campo
+    dateInput.addEventListener('click', function() {
         datePickerModal.style.display = 'block';
         showYearSelector();
     });
@@ -720,9 +718,8 @@ function setupDatePicker() {
         showYearSelector();
     });
     
-    // Botones de acción
+    // Botón de cancelar
     cancelBtn.addEventListener('click', closeDatePicker);
-    confirmBtn.addEventListener('click', confirmDate);
     
     function showYearSelector() {
         currentYearSpan.textContent = `${currentYear - 5} - ${currentYear + 4}`;
@@ -780,7 +777,7 @@ function setupDatePicker() {
             dayItem.textContent = day;
             dayItem.addEventListener('click', function() {
                 selectedDay = day;
-                highlightSelectedDay();
+                confirmDate(); // Confirmar automáticamente al seleccionar día
             });
             daySelector.appendChild(dayItem);
         }
@@ -799,11 +796,7 @@ function setupDatePicker() {
     function confirmDate() {
         if (selectedYear && selectedMonth && selectedDay) {
             const date = new Date(selectedYear, selectedMonth - 1, selectedDay);
-            const formattedDate = date.toLocaleDateString('es-ES', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+            const formattedDate = `${selectedDay.toString().padStart(2, '0')}/${(selectedMonth).toString().padStart(2, '0')}/${selectedYear}`;
             
             dateInput.value = formattedDate;
             closeDatePicker();
