@@ -50,12 +50,7 @@
 
                 <div class="form-group">
                     <label for="telefono">Teléfono *</label>
-                    <div class="input-with-button">
-                        <input type="tel" id="telefono" name="telefono" required>
-                        <button type="button" id="telefonoEjemploBtn" class="btn-ejemplo">
-                            <i class="fas fa-question-circle"></i> Ejemplo
-                        </button>
-                    </div>
+                    <input type="tel" id="telefono" name="telefono" required>
                 </div>
 
                 <div class="form-row">
@@ -240,7 +235,7 @@
                         <ul>
                             <li><strong>Formato:</strong> usuario@dominio.com</li>
                             <li><strong>Ejemplos válidos:</strong> juan@gmail.com, maria@hotmail.com</li>
-                            <li><strong>No incluir espacios</strong> ni caracteres especiales</li>
+                            <li><strong>No incluir espacios</strong></li>
                         </ul>
                         <div class="ejemplo-note">
                             <i class="fas fa-lightbulb"></i>
@@ -251,49 +246,7 @@
             </div>
         </div>
 
-        <!-- Modal de Ejemplo de Teléfono -->
-        <div id="telefonoEjemploModal" class="modal">
-            <div class="modal-content ejemplo-modal">
-                <span class="close" id="closeTelefonoEjemplo">&times;</span>
-                <h2><i class="fas fa-phone"></i> Ejemplo de Número de Teléfono</h2>
-                <div class="ejemplo-content">
-                    <div class="phone-example">
-                        <div class="phone-visual">
-                            <div class="phone-header">
-                                <i class="fas fa-mobile-alt"></i>
-                                <span>Número de Teléfono</span>
-                            </div>
-                            <div class="phone-examples">
-                                <div class="phone-item">
-                                    <span class="phone-label">Móvil:</span>
-                                    <span class="phone-value">+52 55 1234 5678</span>
-                                </div>
-                                <div class="phone-item">
-                                    <span class="phone-label">Casa:</span>
-                                    <span class="phone-value">+52 55 9876 5432</span>
-                                </div>
-                                <div class="phone-item">
-                                    <span class="phone-label">Trabajo:</span>
-                                    <span class="phone-value">+52 55 5555 1234</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ejemplo-instructions">
-                        <h3><i class="fas fa-info-circle"></i> Cómo escribir tu número de teléfono:</h3>
-                        <ul>
-                            <li><strong>Formato:</strong> +52 (código de área) número</li>
-                            <li><strong>Ejemplos:</strong> +52 55 1234 5678, 55 1234 5678</li>
-                            <li><strong>Puedes incluir espacios</strong> para mejor legibilidad</li>
-                        </ul>
-                        <div class="ejemplo-note">
-                            <i class="fas fa-lightbulb"></i>
-                            <strong>Consejo:</strong> Incluye el código de país (+52) si es un número internacional.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Notificaciones -->
         <div id="notification" class="notification"></div>

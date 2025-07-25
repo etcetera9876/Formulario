@@ -19,10 +19,6 @@ const emailEjemploBtn = document.getElementById('emailEjemploBtn');
 const emailEjemploModal = document.getElementById('emailEjemploModal');
 const closeEmailEjemploBtn = document.getElementById('closeEmailEjemplo');
 
-const telefonoEjemploBtn = document.getElementById('telefonoEjemploBtn');
-const telefonoEjemploModal = document.getElementById('telefonoEjemploModal');
-const closeTelefonoEjemploBtn = document.getElementById('closeTelefonoEjemplo');
-
 // Variables globales
 let selectedFiles = [];
 
@@ -68,14 +64,7 @@ function setupEventListeners() {
         }
     });
     
-    // Modal de ejemplo de teléfono
-    telefonoEjemploBtn.addEventListener('click', showTelefonoEjemploModal);
-    closeTelefonoEjemploBtn.addEventListener('click', closeTelefonoEjemploModal);
-    window.addEventListener('click', function(event) {
-        if (event.target === telefonoEjemploModal) {
-            closeTelefonoEjemploModal();
-        }
-    });
+
     
     // Validación en tiempo real
     setupRealTimeValidation();
@@ -414,15 +403,7 @@ function closeEmailEjemploModal() {
     emailEjemploModal.style.display = 'none';
 }
 
-function showTelefonoEjemploModal() {
-    telefonoEjemploModal.style.display = 'block';
-    const modalContent = telefonoEjemploModal.querySelector('.modal-content');
-    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
-}
 
-function closeTelefonoEjemploModal() {
-    telefonoEjemploModal.style.display = 'none';
-}
 
 async function handleFormSubmit(e) {
     e.preventDefault();
