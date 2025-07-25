@@ -64,7 +64,8 @@ function setupEventListeners() {
         }
     });
     
-
+    // Configurar funcionalidades especiales de los campos
+    setupSpecialFieldFeatures();
     
     // Validación en tiempo real
     setupRealTimeValidation();
@@ -173,6 +174,179 @@ function formatFileSize(bytes) {
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+function setupSpecialFieldFeatures() {
+    // 1. Auto-capitalización para nombre completo
+    const nombreInput = document.getElementById('nombre');
+    if (nombreInput) {
+        nombreInput.addEventListener('input', function(e) {
+            const value = e.target.value;
+            const capitalized = value.replace(/\b\w/g, l => l.toUpperCase());
+            if (value !== capitalized) {
+                e.target.value = capitalized;
+            }
+        });
+    }
+    
+    // 2. Sugerencias de email
+    const emailInput = document.getElementById('email');
+    if (emailInput) {
+        setupEmailSuggestions(emailInput);
+    }
+    
+    // 3. Formato de teléfono
+    const telefonoInput = document.getElementById('telefono');
+    if (telefonoInput) {
+        setupPhoneFormatting(telefonoInput);
+    }
+}
+
+function setupEmailSuggestions(emailInput) {
+    const commonDomains = [
+        '@gmail.com', '@hotmail.com', '@outlook.com', '@yahoo.com',
+        '@icloud.com', '@live.com', '@msn.com', '@aol.com',
+        '@protonmail.com', '@yandex.com', '@mail.com'
+    ];
+    
+    let suggestionDiv = null;
+    
+    emailInput.addEventListener('input', function(e) {
+        const value = e.target.value;
+        
+        // Remover sugerencias anteriores
+        if (suggestionDiv) {
+            suggestionDiv.remove();
+            suggestionDiv = null;
+        }
+        
+        // Verificar si el usuario está escribiendo un email
+        if (value.includes('@')) {
+            const [localPart, domain] = value.split('@');
+            if (localPart && !domain) {
+                // Mostrar sugerencias
+                showEmailSuggestions(emailInput, localPart, commonDomains);
+            }
+        }
+    });
+    
+    emailInput.addEventListener('blur', function() {
+        // Remover sugerencias al perder el foco
+        setTimeout(() => {
+            if (suggestionDiv) {
+                suggestionDiv.remove();
+                suggestionDiv = null;
+            }
+        }, 200);
+    });
+}
+
+function showEmailSuggestions(emailInput, localPart, domains) {
+    // Remover sugerencias anteriores
+    const existingSuggestions = document.querySelector('.email-suggestions');
+    if (existingSuggestions) {
+        existingSuggestions.remove();
+    }
+    
+    // Crear contenedor de sugerencias
+    const suggestionDiv = document.createElement('div');
+    suggestionDiv.className = 'email-suggestions';
+    suggestionDiv.style.cssText = `
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        z-index: 1000;
+        max-height: 200px;
+        overflow-y: auto;
+    `;
+    
+    // Crear sugerencias
+    domains.forEach(domain => {
+        const suggestion = document.createElement('div');
+        suggestion.className = 'email-suggestion';
+        suggestion.textContent = localPart + domain;
+        suggestion.style.cssText = `
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background-color 0.2s;
+        `;
+        
+        suggestion.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#f8f9fa';
+        });
+        
+        suggestion.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = 'white';
+        });
+        
+        suggestion.addEventListener('click', function() {
+            emailInput.value = this.textContent;
+            suggestionDiv.remove();
+        });
+        
+        suggestionDiv.appendChild(suggestion);
+    });
+    
+    // Posicionar y mostrar sugerencias
+    emailInput.parentNode.style.position = 'relative';
+    emailInput.parentNode.appendChild(suggestionDiv);
+}
+
+function setupPhoneFormatting(phoneInput) {
+    // Agregar placeholder con formato
+    phoneInput.placeholder = '(555) 123-4567';
+    
+    // Agregar advertencia sobre códigos de país
+    const warningDiv = document.createElement('div');
+    warningDiv.className = 'phone-warning';
+    warningDiv.innerHTML = '<i class="fas fa-info-circle"></i> No incluir código de país (+1, +52, etc.)';
+    warningDiv.style.cssText = `
+        font-size: 0.8rem;
+        color: #666;
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    `;
+    
+    phoneInput.parentNode.appendChild(warningDiv);
+    
+    phoneInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Solo números
+        
+        // Limitar a 10 dígitos
+        if (value.length > 10) {
+            value = value.substring(0, 10);
+        }
+        
+        // Aplicar formato
+        let formatted = '';
+        if (value.length > 0) {
+            if (value.length <= 3) {
+                formatted = `(${value}`;
+            } else if (value.length <= 6) {
+                formatted = `(${value.substring(0, 3)}) ${value.substring(3)}`;
+            } else {
+                formatted = `(${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6)}`;
+            }
+        }
+        
+        e.target.value = formatted;
+    });
+    
+    // Prevenir entrada de caracteres no numéricos
+    phoneInput.addEventListener('keypress', function(e) {
+        const char = String.fromCharCode(e.which);
+        if (!/\d/.test(char)) {
+            e.preventDefault();
+        }
+    });
 }
 
 function setupRealTimeValidation() {

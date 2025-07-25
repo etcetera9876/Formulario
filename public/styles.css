@@ -331,6 +331,57 @@ textarea.error {
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
 }
 
+/* Estilos para sugerencias de email */
+.email-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 2px;
+}
+
+.email-suggestion {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+
+.email-suggestion:hover {
+    background-color: #f8f9fa;
+}
+
+.email-suggestion:last-child {
+    border-bottom: none;
+}
+
+/* Estilos para advertencia de teléfono */
+.phone-warning {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 4px;
+    border-left: 3px solid #667eea;
+}
+
+.phone-warning i {
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
 /* Animación para mensajes de error */
 .field-error {
     animation: errorSlideIn 0.3s ease-out;
@@ -757,6 +808,26 @@ textarea.error {
         font-size: 14px;
         padding: 10px 12px;
         margin-top: 8px;
+    }
+    
+    /* Sugerencias de email en móvil */
+    .email-suggestions {
+        max-height: 150px;
+        font-size: 0.85rem;
+    }
+    
+    .email-suggestion {
+        padding: 10px 12px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Advertencia de teléfono en móvil */
+    .phone-warning {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        margin-top: 6px;
     }
 }
 
