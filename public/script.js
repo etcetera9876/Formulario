@@ -231,13 +231,13 @@ function setupEmailSuggestions(emailInput) {
     });
     
     emailInput.addEventListener('blur', function() {
-        // Remover sugerencias al perder el foco
+        // Remover sugerencias al perder el foco con un pequeño delay
         setTimeout(() => {
-            if (suggestionDiv) {
-                suggestionDiv.remove();
-                suggestionDiv = null;
+            const existingSuggestions = document.querySelector('.email-suggestions');
+            if (existingSuggestions) {
+                existingSuggestions.remove();
             }
-        }, 200);
+        }, 150);
     });
 }
 
@@ -285,17 +285,26 @@ function showEmailSuggestions(emailInput, localPart, domains) {
             this.style.backgroundColor = 'white';
         });
         
-        suggestion.addEventListener('click', function() {
+        suggestion.addEventListener('click', function(e) {
+            // Prevenir que el evento se propague
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Establecer el valor del email
             emailInput.value = this.textContent;
+            
+            // Remover las sugerencias
             suggestionDiv.remove();
             
-            // Disparar evento input para validar inmediatamente
-            const inputEvent = new Event('input', { bubbles: true });
-            emailInput.dispatchEvent(inputEvent);
+            // Limpiar cualquier error existente inmediatamente
+            clearFieldError({ target: emailInput });
             
-            // También disparar evento blur para asegurar validación
-            const blurEvent = new Event('blur', { bubbles: true });
-            emailInput.dispatchEvent(blurEvent);
+            // Restaurar estilos del campo
+            emailInput.style.borderColor = '#e1e5e9';
+            emailInput.style.boxShadow = 'none';
+            
+            // Hacer focus en el campo para mejor UX
+            emailInput.focus();
         });
         
         suggestionDiv.appendChild(suggestion);
