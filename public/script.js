@@ -228,7 +228,15 @@ function setupEmailSuggestions(emailInput) {
         }
     });
     
-    // No usar blur event para remover sugerencias - solo se removerán al hacer click
+    // Agregar evento para remover sugerencias cuando se hace click fuera
+    document.addEventListener('click', function(e) {
+        if (!emailInput.contains(e.target) && !e.target.closest('.email-suggestions')) {
+            const existingSuggestions = document.querySelector('.email-suggestions');
+            if (existingSuggestions) {
+                existingSuggestions.remove();
+            }
+        }
+    });
 }
 
 function showEmailSuggestions(emailInput, localPart, domains) {
@@ -242,14 +250,15 @@ function showEmailSuggestions(emailInput, localPart, domains) {
         suggestion.className = 'email-suggestion';
         suggestion.textContent = localPart + domain;
         
-        suggestion.addEventListener('click', function(e) {
+        // Usar mousedown en lugar de click para evitar conflictos
+        suggestion.addEventListener('mousedown', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            // Establecer el valor del email
+            // Establecer el valor del email inmediatamente
             emailInput.value = this.textContent;
             
-            // Remover las sugerencias
+            // Remover las sugerencias inmediatamente
             suggestionDiv.remove();
             
             // Limpiar cualquier error existente
@@ -259,8 +268,10 @@ function showEmailSuggestions(emailInput, localPart, domains) {
             emailInput.style.borderColor = '#e1e5e9';
             emailInput.style.boxShadow = 'none';
             
-            // Hacer focus en el campo
-            emailInput.focus();
+            // Hacer focus en el campo después de un pequeño delay
+            setTimeout(() => {
+                emailInput.focus();
+            }, 10);
         });
         
         suggestionDiv.appendChild(suggestion);
