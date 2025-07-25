@@ -66,6 +66,45 @@ body {
     z-index: 2;
 }
 
+/* Contenedor del subtítulo y botón */
+.header-subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+/* Botón de ejemplo */
+.btn-example {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.btn-example:hover {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-example i {
+    font-size: 1rem;
+}
+
 /* Partículas de fondo */
 .particles {
     position: absolute;
@@ -570,6 +609,105 @@ textarea:focus {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* Estilos del modal de ejemplo */
+.example-modal {
+    max-width: 800px;
+    max-height: 90vh;
+}
+
+.example-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.id-example {
+    text-align: center;
+}
+
+.id-example h3 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.id-image {
+    border: 2px solid #e1e5e9;
+    border-radius: 10px;
+    padding: 10px;
+    background: #f8f9fa;
+    display: inline-block;
+}
+
+.id-card {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.example-fields h3 {
+    color: #667eea;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.field-example {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.example-field {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.example-field label {
+    color: #333;
+    font-size: 1rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.example-value {
+    background: #667eea;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin: 8px 0;
+}
+
+.example-note {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 8px 0 0 0;
+    font-style: italic;
+}
+
+/* Responsive para el modal de ejemplo */
+@media (max-width: 768px) {
+    .example-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .header-subtitle {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .btn-example {
+        margin-top: 10px;
     }
 }
 

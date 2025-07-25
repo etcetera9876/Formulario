@@ -9,6 +9,11 @@ const notification = document.getElementById('notification');
 const fileInput = document.getElementById('files');
 const fileList = document.getElementById('fileList');
 
+// Elementos del modal de ejemplo
+const exampleBtn = document.getElementById('exampleBtn');
+const exampleModal = document.getElementById('exampleModal');
+const exampleCloseBtn = exampleModal.querySelector('.close');
+
 // Variables globales
 let selectedFiles = [];
 
@@ -25,11 +30,20 @@ function setupEventListeners() {
     // Vista previa
     previewBtn.addEventListener('click', showPreview);
     
-    // Modal
+    // Modal de vista previa
     closeBtn.addEventListener('click', closeModal);
     window.addEventListener('click', function(event) {
         if (event.target === modal) {
             closeModal();
+        }
+    });
+    
+    // Modal de ejemplo
+    exampleBtn.addEventListener('click', showExampleModal);
+    exampleCloseBtn.addEventListener('click', closeExampleModal);
+    window.addEventListener('click', function(event) {
+        if (event.target === exampleModal) {
+            closeExampleModal();
         }
     });
     
@@ -287,6 +301,14 @@ function showPreview() {
 
 function closeModal() {
     modal.style.display = 'none';
+}
+
+function showExampleModal() {
+    exampleModal.style.display = 'block';
+}
+
+function closeExampleModal() {
+    exampleModal.style.display = 'none';
 }
 
 async function handleFormSubmit(e) {

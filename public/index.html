@@ -20,7 +20,12 @@
                 <div class="particle"></div>
             </div>
             <h1><i class="fas fa-clipboard-list"></i> Formulario Personalizado</h1>
-            <p>Completa el formulario y tus respuestas se guardarán automáticamente en Google Sheets</p>
+            <div class="header-subtitle">
+                <p>Completa el formulario y tus respuestas se guardarán automáticamente en Google Sheets</p>
+                <button id="exampleBtn" class="btn-example">
+                    <i class="fas fa-question-circle"></i> Ejemplo
+                </button>
+            </div>
         </header>
 
         <form id="customForm" class="form-container" enctype="multipart/form-data">
@@ -152,6 +157,52 @@
                 <span class="close">&times;</span>
                 <h2>Vista Previa del Formulario</h2>
                 <div id="previewContent"></div>
+            </div>
+        </div>
+
+        <!-- Modal de Ejemplo -->
+        <div id="exampleModal" class="modal">
+            <div class="modal-content example-modal">
+                <span class="close">&times;</span>
+                <h2><i class="fas fa-id-card"></i> Ejemplo de Llenado</h2>
+                <div class="example-content">
+                    <div class="id-example">
+                        <h3>Documento de Identidad</h3>
+                        <div class="id-image">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMwMCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMTgwIiBmaWxsPSIjRkZGRkZGIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iMiIvPgo8cmVjdCB4PSIyMCIgeT0iMjAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiNlMWU1ZTkiLz4KPHN2ZyB4PSIzMCIgeT0iMzAiIHdpZHRoPSI2MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjNjY2Ij4KPHBhdGggZD0iTTEyIDEyYzIuMjEgMCA0LTEuNzkgNC00cy0xLjc5LTQtNC00LTQgMS43OS00IDQgMS43OSA0IDQgNHptMCAyYy0yLjY3IDAtOCAxLjM0LTggNHYyaDE2di0yYzAtMi42Ni01LjMzLTQtOC00eiIvPgo8L3N2Zz4KPHN2ZyB4PSIxMjAiIHk9IjIwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIj4KPHRleHQgeD0iMTAiIHk9IjMwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMzMzMiPk5PTUJSRSBDT01QTEVUTyA8L3RleHQ+Cjx0ZXh0IHg9IjEwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNjY2Ij5KdWFuIENhcmxvcyBNYXJ0w61uZXogR29uesOhbGV6PC90ZXh0Pgo8dGV4dCB4PSIxMCIgeT0iNzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzMzMyI+RkVDSEEgREUgTkFDSU1JRU5UTyA8L3RleHQ+Cjx0ZXh0IHg9IjEwIiB5PSI5MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjEwIiBmaWxsPSIjNjY2Ij4xNSBkZSBNYXJ6byBkZSAxOTg1PC90ZXh0Pgo8dGV4dCB4PSIxMCIgeT0iMTEwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiMzMzMiPk5BTUNJT05BTElEQUQ8L3RleHQ+Cjx0ZXh0IHg9IjEwIiB5PSIxMzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMCIgZmlsbD0iIzY2NiI+TWV4aWNhbmE8L3RleHQ+Cjwvc3ZnPgo8L3N2Zz4K" alt="Ejemplo de ID" class="id-card">
+                        </div>
+                    </div>
+                    <div class="example-fields">
+                        <h3>¿Cómo llenar los campos?</h3>
+                        <div class="field-example">
+                            <div class="example-field">
+                                <label><strong>Nombre Completo:</strong></label>
+                                <span class="example-value">Juan Carlos Martínez González</span>
+                                <p class="example-note">Escribe tu nombre completo tal como aparece en tu documento de identidad</p>
+                            </div>
+                            <div class="example-field">
+                                <label><strong>Correo Electrónico:</strong></label>
+                                <span class="example-value">juan.martinez@email.com</span>
+                                <p class="example-note">Usa un correo válido que uses frecuentemente</p>
+                            </div>
+                            <div class="example-field">
+                                <label><strong>Teléfono:</strong></label>
+                                <span class="example-value">+52 55 1234 5678</span>
+                                <p class="example-note">Incluye código de país y área</p>
+                            </div>
+                            <div class="example-field">
+                                <label><strong>Edad:</strong></label>
+                                <span class="example-value">38 años</span>
+                                <p class="example-note">Calculada automáticamente desde tu fecha de nacimiento</p>
+                            </div>
+                            <div class="example-field">
+                                <label><strong>Género:</strong></label>
+                                <span class="example-value">Masculino</span>
+                                <p class="example-note">Selecciona la opción que mejor te identifique</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
