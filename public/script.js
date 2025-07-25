@@ -10,9 +10,9 @@ const fileInput = document.getElementById('files');
 const fileList = document.getElementById('fileList');
 
 // Elementos del modal de ejemplo
-const exampleBtn = document.getElementById('exampleBtn');
-const exampleModal = document.getElementById('exampleModal');
-const exampleCloseBtn = exampleModal.querySelector('.close');
+const ejemploBtn = document.getElementById('ejemploBtn');
+const ejemploModal = document.getElementById('ejemploModal');
+const closeEjemploBtn = document.getElementById('closeEjemplo');
 
 // Variables globales
 let selectedFiles = [];
@@ -39,11 +39,11 @@ function setupEventListeners() {
     });
     
     // Modal de ejemplo
-    exampleBtn.addEventListener('click', showExampleModal);
-    exampleCloseBtn.addEventListener('click', closeExampleModal);
+    ejemploBtn.addEventListener('click', showEjemploModal);
+    closeEjemploBtn.addEventListener('click', closeEjemploModal);
     window.addEventListener('click', function(event) {
-        if (event.target === exampleModal) {
-            closeExampleModal();
+        if (event.target === ejemploModal) {
+            closeEjemploModal();
         }
     });
     
@@ -303,12 +303,15 @@ function closeModal() {
     modal.style.display = 'none';
 }
 
-function showExampleModal() {
-    exampleModal.style.display = 'block';
+function showEjemploModal() {
+    ejemploModal.style.display = 'block';
+    // Agregar animación de entrada
+    const modalContent = ejemploModal.querySelector('.modal-content');
+    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
 }
 
-function closeExampleModal() {
-    exampleModal.style.display = 'none';
+function closeEjemploModal() {
+    ejemploModal.style.display = 'none';
 }
 
 async function handleFormSubmit(e) {

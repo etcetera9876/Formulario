@@ -66,45 +66,6 @@ body {
     z-index: 2;
 }
 
-/* Contenedor del subtítulo y botón */
-.header-subtitle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 2;
-}
-
-/* Botón de ejemplo */
-.btn-example {
-    background: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 25px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    backdrop-filter: blur(10px);
-}
-
-.btn-example:hover {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.btn-example i {
-    font-size: 1rem;
-}
-
 /* Partículas de fondo */
 .particles {
     position: absolute;
@@ -229,6 +190,42 @@ textarea {
     font-size: 1rem;
     transition: all 0.3s ease;
     background: white;
+}
+
+/* Input con botón */
+.input-with-button {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.input-with-button input {
+    flex: 1;
+}
+
+.btn-ejemplo {
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-ejemplo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn-ejemplo i {
+    font-size: 0.8rem;
 }
 
 input:focus,
@@ -511,6 +508,17 @@ textarea:focus {
     }
 }
 
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
 .form-section {
     animation: fadeIn 0.6s ease-out;
 }
@@ -612,105 +620,6 @@ textarea:focus {
     }
 }
 
-/* Estilos del modal de ejemplo */
-.example-modal {
-    max-width: 800px;
-    max-height: 90vh;
-}
-
-.example-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 20px;
-}
-
-.id-example {
-    text-align: center;
-}
-
-.id-example h3 {
-    color: #667eea;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
-}
-
-.id-image {
-    border: 2px solid #e1e5e9;
-    border-radius: 10px;
-    padding: 10px;
-    background: #f8f9fa;
-    display: inline-block;
-}
-
-.id-card {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.example-fields h3 {
-    color: #667eea;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-}
-
-.field-example {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.example-field {
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 10px;
-    border-left: 4px solid #667eea;
-}
-
-.example-field label {
-    color: #333;
-    font-size: 1rem;
-    margin-bottom: 8px;
-    display: block;
-}
-
-.example-value {
-    background: #667eea;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    display: inline-block;
-    margin: 8px 0;
-}
-
-.example-note {
-    color: #666;
-    font-size: 0.85rem;
-    margin: 8px 0 0 0;
-    font-style: italic;
-}
-
-/* Responsive para el modal de ejemplo */
-@media (max-width: 768px) {
-    .example-content {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .header-subtitle {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .btn-example {
-        margin-top: 10px;
-    }
-}
-
 @keyframes float {
     0%, 100% {
         transform: translateY(0px) translateX(0px);
@@ -727,5 +636,146 @@ textarea:focus {
     75% {
         transform: translateY(-15px) translateX(15px);
         opacity: 0.9;
+    }
+}
+
+/* Modal de Ejemplo */
+.ejemplo-modal {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.ejemplo-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.id-example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.id-image {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.id-placeholder {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+.id-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.id-field {
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    border-left: 4px solid white;
+}
+
+.field-label {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 2px;
+}
+
+.field-value {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.ejemplo-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ejemplo-instructions h3 {
+    color: #667eea;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ejemplo-instructions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ejemplo-instructions li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ejemplo-instructions li:before {
+    content: '✓';
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.ejemplo-note {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ejemplo-note i {
+    color: #ffc107;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+/* Responsive para el modal de ejemplo */
+@media (max-width: 768px) {
+    .ejemplo-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .id-image {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .ejemplo-modal {
+        margin: 10% auto;
+        width: 95%;
     }
 } 
