@@ -200,6 +200,9 @@ function setupSpecialFieldFeatures() {
     if (telefonoInput) {
         setupPhoneFormatting(telefonoInput);
     }
+    
+    // 4. Date picker personalizado
+    setupDatePicker();
 }
 
 function setupEmailSuggestions(emailInput) {
@@ -542,7 +545,7 @@ function showPreview() {
     previewHTML += `<p><strong>Nombre:</strong> ${formData.get('nombre') || 'No especificado'}</p>`;
     previewHTML += `<p><strong>Email:</strong> ${formData.get('email') || 'No especificado'}</p>`;
     previewHTML += `<p><strong>Teléfono:</strong> ${formData.get('telefono') || 'No especificado'}</p>`;
-    previewHTML += `<p><strong>Edad:</strong> ${formData.get('edad') || 'No especificado'}</p>`;
+    previewHTML += `<p><strong>Fecha de Nacimiento:</strong> ${formData.get('fechaNacimiento') || 'No especificado'}</p>`;
     previewHTML += `<p><strong>Género:</strong> ${formData.get('genero') || 'No especificado'}</p>`;
     
     // Intereses
@@ -667,6 +670,151 @@ async function getStats() {
         console.log('Estadísticas:', stats);
     } catch (error) {
         console.error('Error al obtener estadísticas:', error);
+    }
+}
+
+function setupDatePicker() {
+    const dateInput = document.getElementById('fechaNacimiento');
+    const datePickerBtn = document.getElementById('datePickerBtn');
+    const datePickerModal = document.getElementById('datePickerModal');
+    const yearSelector = document.getElementById('yearSelector');
+    const monthSelector = document.getElementById('monthSelector');
+    const daySelector = document.getElementById('daySelector');
+    const currentYearSpan = document.getElementById('currentYear');
+    const prevYearBtn = document.getElementById('prevYear');
+    const nextYearBtn = document.getElementById('nextYear');
+    const cancelBtn = document.getElementById('cancelDate');
+    const confirmBtn = document.getElementById('confirmDate');
+    
+    let currentYear = new Date().getFullYear();
+    let selectedYear = null;
+    let selectedMonth = null;
+    let selectedDay = null;
+    
+    const months = [
+        'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+    ];
+    
+    // Mostrar modal
+    datePickerBtn.addEventListener('click', function() {
+        datePickerModal.style.display = 'block';
+        showYearSelector();
+    });
+    
+    // Cerrar modal al hacer click fuera
+    datePickerModal.addEventListener('click', function(e) {
+        if (e.target === datePickerModal) {
+            closeDatePicker();
+        }
+    });
+    
+    // Navegación de años
+    prevYearBtn.addEventListener('click', function() {
+        currentYear -= 10;
+        showYearSelector();
+    });
+    
+    nextYearBtn.addEventListener('click', function() {
+        currentYear += 10;
+        showYearSelector();
+    });
+    
+    // Botones de acción
+    cancelBtn.addEventListener('click', closeDatePicker);
+    confirmBtn.addEventListener('click', confirmDate);
+    
+    function showYearSelector() {
+        currentYearSpan.textContent = `${currentYear - 5} - ${currentYear + 4}`;
+        yearSelector.style.display = 'grid';
+        monthSelector.style.display = 'none';
+        daySelector.style.display = 'none';
+        
+        yearSelector.innerHTML = '';
+        
+        for (let year = currentYear - 5; year <= currentYear + 4; year++) {
+            const yearItem = document.createElement('div');
+            yearItem.className = 'year-item';
+            yearItem.textContent = year;
+            yearItem.addEventListener('click', function() {
+                selectedYear = year;
+                showMonthSelector();
+            });
+            yearSelector.appendChild(yearItem);
+        }
+    }
+    
+    function showMonthSelector() {
+        currentYearSpan.textContent = selectedYear;
+        yearSelector.style.display = 'none';
+        monthSelector.style.display = 'grid';
+        daySelector.style.display = 'none';
+        
+        monthSelector.innerHTML = '';
+        
+        months.forEach((month, index) => {
+            const monthItem = document.createElement('div');
+            monthItem.className = 'month-item';
+            monthItem.textContent = month;
+            monthItem.addEventListener('click', function() {
+                selectedMonth = index + 1;
+                showDaySelector();
+            });
+            monthSelector.appendChild(monthItem);
+        });
+    }
+    
+    function showDaySelector() {
+        currentYearSpan.textContent = `${months[selectedMonth - 1]} ${selectedYear}`;
+        yearSelector.style.display = 'none';
+        monthSelector.style.display = 'none';
+        daySelector.style.display = 'grid';
+        
+        daySelector.innerHTML = '';
+        
+        const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+        
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayItem = document.createElement('div');
+            dayItem.className = 'day-item';
+            dayItem.textContent = day;
+            dayItem.addEventListener('click', function() {
+                selectedDay = day;
+                highlightSelectedDay();
+            });
+            daySelector.appendChild(dayItem);
+        }
+    }
+    
+    function highlightSelectedDay() {
+        const dayItems = daySelector.querySelectorAll('.day-item');
+        dayItems.forEach(item => item.classList.remove('selected'));
+        
+        const selectedItem = daySelector.querySelector(`[data-day="${selectedDay}"]`);
+        if (selectedItem) {
+            selectedItem.classList.add('selected');
+        }
+    }
+    
+    function confirmDate() {
+        if (selectedYear && selectedMonth && selectedDay) {
+            const date = new Date(selectedYear, selectedMonth - 1, selectedDay);
+            const formattedDate = date.toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            dateInput.value = formattedDate;
+            closeDatePicker();
+        }
+    }
+    
+    function closeDatePicker() {
+        datePickerModal.style.display = 'none';
+        selectedYear = null;
+        selectedMonth = null;
+        selectedDay = null;
     }
 }
 

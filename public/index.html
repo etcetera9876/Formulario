@@ -58,8 +58,35 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="edad">Edad</label>
-                        <input type="number" id="edad" name="edad" min="1" max="120">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <div class="date-picker-container">
+                            <input type="text" id="fechaNacimiento" name="fechaNacimiento" readonly placeholder="Selecciona tu fecha de nacimiento">
+                            <button type="button" id="datePickerBtn" class="date-picker-btn">
+                                <i class="fas fa-calendar-alt"></i>
+                            </button>
+                        </div>
+                        <div id="datePickerModal" class="date-picker-modal">
+                            <div class="date-picker-content">
+                                <div class="date-picker-header">
+                                    <button type="button" id="prevYear" class="date-nav-btn">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <span id="currentYear" class="date-picker-title">2024</span>
+                                    <button type="button" id="nextYear" class="date-nav-btn">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="date-picker-body">
+                                    <div id="yearSelector" class="year-selector"></div>
+                                    <div id="monthSelector" class="month-selector" style="display: none;"></div>
+                                    <div id="daySelector" class="day-selector" style="display: none;"></div>
+                                </div>
+                                <div class="date-picker-footer">
+                                    <button type="button" id="cancelDate" class="btn-secondary">Cancelar</button>
+                                    <button type="button" id="confirmDate" class="btn-primary">Confirmar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
