@@ -14,6 +14,15 @@ const ejemploBtn = document.getElementById('ejemploBtn');
 const ejemploModal = document.getElementById('ejemploModal');
 const closeEjemploBtn = document.getElementById('closeEjemplo');
 
+// Elementos de los nuevos modales
+const emailEjemploBtn = document.getElementById('emailEjemploBtn');
+const emailEjemploModal = document.getElementById('emailEjemploModal');
+const closeEmailEjemploBtn = document.getElementById('closeEmailEjemplo');
+
+const telefonoEjemploBtn = document.getElementById('telefonoEjemploBtn');
+const telefonoEjemploModal = document.getElementById('telefonoEjemploModal');
+const closeTelefonoEjemploBtn = document.getElementById('closeTelefonoEjemplo');
+
 // Variables globales
 let selectedFiles = [];
 
@@ -22,10 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     setupFileUpload();
     
-    // Validar campos obligatorios al cargar la página
-    setTimeout(() => {
-        validateAllRequiredFields();
-    }, 100);
+    // NO validar campos automáticamente al cargar la página
+    // Los errores solo aparecerán al intentar enviar el formulario
 });
 
 function setupEventListeners() {
@@ -49,6 +56,24 @@ function setupEventListeners() {
     window.addEventListener('click', function(event) {
         if (event.target === ejemploModal) {
             closeEjemploModal();
+        }
+    });
+    
+    // Modal de ejemplo de email
+    emailEjemploBtn.addEventListener('click', showEmailEjemploModal);
+    closeEmailEjemploBtn.addEventListener('click', closeEmailEjemploModal);
+    window.addEventListener('click', function(event) {
+        if (event.target === emailEjemploModal) {
+            closeEmailEjemploModal();
+        }
+    });
+    
+    // Modal de ejemplo de teléfono
+    telefonoEjemploBtn.addEventListener('click', showTelefonoEjemploModal);
+    closeTelefonoEjemploBtn.addEventListener('click', closeTelefonoEjemploModal);
+    window.addEventListener('click', function(event) {
+        if (event.target === telefonoEjemploModal) {
+            closeTelefonoEjemploModal();
         }
     });
     
@@ -177,12 +202,7 @@ function validateField(e) {
     // Remover errores previos
     clearFieldError(e);
     
-    // Validaciones específicas
-    if (field.hasAttribute('required') && !value) {
-        showFieldError(field, 'Este campo es obligatorio');
-        return false;
-    }
-    
+    // Solo validar formato si hay contenido (no validar campos vacíos en tiempo real)
     if (field.type === 'email' && value && !isValidEmail(value)) {
         showFieldError(field, 'Ingresa un email válido');
         return false;
@@ -208,14 +228,19 @@ function validateField(e) {
     return true;
 }
 
-// Función para validar todos los campos al cargar la página
-function validateAllRequiredFields() {
+// Función para validar campos obligatorios (solo al enviar)
+function validateRequiredFields() {
     const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
+    let hasErrors = false;
+    
     requiredFields.forEach(field => {
         if (!field.value.trim()) {
             showFieldError(field, 'Este campo es obligatorio');
+            hasErrors = true;
         }
     });
+    
+    return !hasErrors;
 }
 
 function showFieldError(field, message) {
@@ -236,6 +261,7 @@ function showFieldError(field, message) {
         display: flex;
         align-items: center;
         gap: 6px;
+        width: 100%;
     `;
     
     // Agregar ícono de error
@@ -246,7 +272,13 @@ function showFieldError(field, message) {
     errorDiv.appendChild(errorIcon);
     errorDiv.appendChild(document.createTextNode(message));
     
-    field.parentNode.appendChild(errorDiv);
+    // Si el campo está dentro de input-with-button, insertar después del contenedor
+    const inputContainer = field.closest('.input-with-button');
+    if (inputContainer) {
+        inputContainer.parentNode.insertBefore(errorDiv, inputContainer.nextSibling);
+    } else {
+        field.parentNode.appendChild(errorDiv);
+    }
 }
 
 function clearFieldError(e) {
@@ -254,7 +286,11 @@ function clearFieldError(e) {
     field.style.borderColor = '#e1e5e9';
     field.style.boxShadow = 'none';
     
-    const errorDiv = field.parentNode.querySelector('.field-error');
+    // Buscar el error en el contenedor padre si está dentro de input-with-button
+    const inputContainer = field.closest('.input-with-button');
+    const searchContainer = inputContainer ? inputContainer.parentNode : field.parentNode;
+    
+    const errorDiv = searchContainer.querySelector('.field-error');
     if (errorDiv) {
         errorDiv.remove();
     }
@@ -279,7 +315,12 @@ function validateForm() {
         clearFieldError({ target: input });
     });
     
-    // Validar todos los campos
+    // Primero validar campos obligatorios
+    if (!validateRequiredFields()) {
+        isValid = false;
+    }
+    
+    // Luego validar formato de campos con contenido
     inputs.forEach(input => {
         if (!validateField({ target: input })) {
             isValid = false;
@@ -361,6 +402,26 @@ function showEjemploModal() {
 
 function closeEjemploModal() {
     ejemploModal.style.display = 'none';
+}
+
+function showEmailEjemploModal() {
+    emailEjemploModal.style.display = 'block';
+    const modalContent = emailEjemploModal.querySelector('.modal-content');
+    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
+}
+
+function closeEmailEjemploModal() {
+    emailEjemploModal.style.display = 'none';
+}
+
+function showTelefonoEjemploModal() {
+    telefonoEjemploModal.style.display = 'block';
+    const modalContent = telefonoEjemploModal.querySelector('.modal-content');
+    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
+}
+
+function closeTelefonoEjemploModal() {
+    telefonoEjemploModal.style.display = 'none';
 }
 
 async function handleFormSubmit(e) {

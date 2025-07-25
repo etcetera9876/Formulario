@@ -197,10 +197,16 @@ textarea {
     display: flex;
     gap: 10px;
     align-items: flex-end;
+    flex-wrap: wrap;
 }
 
 .input-with-button input {
     flex: 1;
+    min-width: 200px;
+}
+
+.input-with-button .btn-ejemplo {
+    flex-shrink: 0;
 }
 
 .btn-ejemplo {
@@ -247,6 +253,14 @@ textarea.error {
 /* Animación para mensajes de error */
 .field-error {
     animation: errorSlideIn 0.3s ease-out;
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Asegurar que el mensaje de error aparezca debajo del input-with-button */
+.form-group .field-error {
+    order: 3;
+    width: 100%;
 }
 
 @keyframes errorSlideIn {
@@ -802,4 +816,100 @@ textarea.error {
         margin: 10% auto;
         width: 95%;
     }
+}
+
+/* Estilos para el modal de email */
+.email-visual {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.email-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.email-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.email-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.email-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.email-value {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Estilos para el modal de teléfono */
+.phone-visual {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.phone-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.phone-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.phone-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.phone-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.phone-value {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
 } 
