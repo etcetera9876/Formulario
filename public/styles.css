@@ -585,12 +585,12 @@ textarea.error {
     
     /* Botones optimizados para móvil */
     .btn-ejemplo {
-        padding: 12px 16px;
+        padding: 8px 20px;
         font-size: 14px;
-        min-height: 44px;
+        min-height: 36px;
         border-radius: 8px;
         width: auto;
-        min-width: 100px;
+        min-width: 120px;
     }
     
     .input-with-button {
