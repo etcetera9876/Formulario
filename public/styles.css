@@ -196,7 +196,26 @@ textarea {
     background: white;
 }
 
-/* Input con botón */
+/* Label con botón */
+.label-with-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.label-with-button label {
+    margin: 0;
+    flex: 1;
+}
+
+.label-with-button .btn-ejemplo {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 100px;
+}
+
+/* Input con botón (mantener para compatibilidad) */
 .input-with-button {
     display: flex;
     flex-direction: column;
@@ -591,6 +610,18 @@ textarea.error {
         border-radius: 8px;
         width: auto;
         min-width: 120px;
+    }
+    
+    .label-with-button {
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+    
+    .label-with-button .btn-ejemplo {
+        min-width: 80px;
+        padding: 6px 12px;
+        font-size: 12px;
+        min-height: 32px;
     }
     
     .input-with-button {
