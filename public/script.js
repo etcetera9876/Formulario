@@ -21,6 +21,11 @@ let selectedFiles = [];
 document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
     setupFileUpload();
+    
+    // Validar campos obligatorios al cargar la página
+    setTimeout(() => {
+        validateAllRequiredFields();
+    }, 100);
 });
 
 function setupEventListeners() {
@@ -203,17 +208,43 @@ function validateField(e) {
     return true;
 }
 
+// Función para validar todos los campos al cargar la página
+function validateAllRequiredFields() {
+    const requiredFields = form.querySelectorAll('input[required], select[required], textarea[required]');
+    requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+            showFieldError(field, 'Este campo es obligatorio');
+        }
+    });
+}
+
 function showFieldError(field, message) {
     field.style.borderColor = '#dc3545';
+    field.style.boxShadow = '0 0 0 3px rgba(220, 53, 69, 0.1)';
     
     const errorDiv = document.createElement('div');
     errorDiv.className = 'field-error';
     errorDiv.style.cssText = `
         color: #dc3545;
-        font-size: 0.8rem;
-        margin-top: 5px;
+        font-size: 0.85rem;
+        margin-top: 8px;
+        padding: 8px 12px;
+        background: rgba(220, 53, 69, 0.05);
+        border: 1px solid rgba(220, 53, 69, 0.2);
+        border-radius: 6px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     `;
-    errorDiv.textContent = message;
+    
+    // Agregar ícono de error
+    const errorIcon = document.createElement('i');
+    errorIcon.className = 'fas fa-exclamation-circle';
+    errorIcon.style.fontSize = '0.9rem';
+    
+    errorDiv.appendChild(errorIcon);
+    errorDiv.appendChild(document.createTextNode(message));
     
     field.parentNode.appendChild(errorDiv);
 }
@@ -221,6 +252,7 @@ function showFieldError(field, message) {
 function clearFieldError(e) {
     const field = e.target;
     field.style.borderColor = '#e1e5e9';
+    field.style.boxShadow = 'none';
     
     const errorDiv = field.parentNode.querySelector('.field-error');
     if (errorDiv) {
@@ -242,11 +274,28 @@ function validateForm() {
     const inputs = form.querySelectorAll('input, select, textarea');
     let isValid = true;
     
+    // Limpiar todos los errores previos
+    inputs.forEach(input => {
+        clearFieldError({ target: input });
+    });
+    
+    // Validar todos los campos
     inputs.forEach(input => {
         if (!validateField({ target: input })) {
             isValid = false;
         }
     });
+    
+    // Si hay errores, hacer scroll al primer error
+    if (!isValid) {
+        const firstError = form.querySelector('.field-error');
+        if (firstError) {
+            firstError.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'center' 
+            });
+        }
+    }
     
     return isValid;
 }
