@@ -209,16 +209,13 @@ function setupEmailSuggestions(emailInput) {
         '@protonmail.com', '@yandex.com', '@mail.com'
     ];
     
-    let suggestionDiv = null;
-    let isSelectingSuggestion = false;
-    
     emailInput.addEventListener('input', function(e) {
         const value = e.target.value;
         
         // Remover sugerencias anteriores
-        if (suggestionDiv) {
-            suggestionDiv.remove();
-            suggestionDiv = null;
+        const existingSuggestions = document.querySelector('.email-suggestions');
+        if (existingSuggestions) {
+            existingSuggestions.remove();
         }
         
         // Verificar si el usuario está escribiendo un email
@@ -231,73 +228,23 @@ function setupEmailSuggestions(emailInput) {
         }
     });
     
-    emailInput.addEventListener('blur', function() {
-        // Solo remover sugerencias si no estamos seleccionando una
-        if (!isSelectingSuggestion) {
-            setTimeout(() => {
-                const existingSuggestions = document.querySelector('.email-suggestions');
-                if (existingSuggestions) {
-                    existingSuggestions.remove();
-                }
-            }, 150);
-        }
-    });
-    
-    // Exponer la variable para que showEmailSuggestions pueda usarla
-    emailInput.isSelectingSuggestion = false;
+    // No usar blur event para remover sugerencias - solo se removerán al hacer click
 }
 
 function showEmailSuggestions(emailInput, localPart, domains) {
-    // Remover sugerencias anteriores
-    const existingSuggestions = document.querySelector('.email-suggestions');
-    if (existingSuggestions) {
-        existingSuggestions.remove();
-    }
-    
     // Crear contenedor de sugerencias
     const suggestionDiv = document.createElement('div');
     suggestionDiv.className = 'email-suggestions';
-    suggestionDiv.style.cssText = `
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        z-index: 1000;
-        max-height: 200px;
-        overflow-y: auto;
-    `;
     
     // Crear sugerencias
     domains.forEach(domain => {
         const suggestion = document.createElement('div');
         suggestion.className = 'email-suggestion';
         suggestion.textContent = localPart + domain;
-        suggestion.style.cssText = `
-            padding: 8px 12px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s;
-        `;
-        
-        suggestion.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = '#f8f9fa';
-        });
-        
-        suggestion.addEventListener('mouseleave', function() {
-            this.style.backgroundColor = 'white';
-        });
         
         suggestion.addEventListener('click', function(e) {
-            // Prevenir que el evento se propague
             e.preventDefault();
             e.stopPropagation();
-            
-            // Marcar que estamos seleccionando una sugerencia
-            emailInput.isSelectingSuggestion = true;
             
             // Establecer el valor del email
             emailInput.value = this.textContent;
@@ -305,20 +252,15 @@ function showEmailSuggestions(emailInput, localPart, domains) {
             // Remover las sugerencias
             suggestionDiv.remove();
             
-            // Limpiar cualquier error existente inmediatamente
+            // Limpiar cualquier error existente
             clearFieldError({ target: emailInput });
             
             // Restaurar estilos del campo
             emailInput.style.borderColor = '#e1e5e9';
             emailInput.style.boxShadow = 'none';
             
-            // Hacer focus en el campo para mejor UX
+            // Hacer focus en el campo
             emailInput.focus();
-            
-            // Resetear la bandera después de un pequeño delay
-            setTimeout(() => {
-                emailInput.isSelectingSuggestion = false;
-            }, 200);
         });
         
         suggestionDiv.appendChild(suggestion);
