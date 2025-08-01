@@ -22,6 +22,19 @@ const closeCiudadEjemploBtn = document.getElementById('closeCiudadEjemplo');
 // Variables globales
 let selectedFiles = [];
 
+// Lista dinámica de ciudades (se actualiza automáticamente)
+let ciudadesList = [
+    'Union City', 'North Bergen', 'Secaucus', 'Jersey City', 'Hoboken',
+    'Bayonne', 'West New York', 'Weehawken', 'Guttenberg', 'Kearny',
+    'Harrison', 'Newark', 'Elizabeth', 'Paterson', 'Clifton',
+    'Passaic', 'Hackensack', 'Paramus', 'Ridgewood', 'Teaneck',
+    'Fort Lee', 'Englewood', 'Bergenfield', 'Dumont', 'New Milford',
+    'River Edge', 'Oradell', 'Emerson', 'Westwood', 'Hillsdale',
+    'Park Ridge', 'Woodcliff Lake', 'Montvale', 'Old Tappan', 'Norwood',
+    'Northvale', 'Harrington Park', 'Closter', 'Alpine', 'Tenafly',
+    'Cresskill', 'Demarest', 'Haworth'
+];
+
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
@@ -632,6 +645,19 @@ async function handleFormSubmit(e) {
         return;
     }
     
+    // Verificar si hay una nueva ciudad para agregar
+    const ciudadSelect = document.getElementById('ciudad');
+    const otraCiudadInput = document.getElementById('otraCiudad');
+    
+    if (ciudadSelect.value === 'Otra' && otraCiudadInput.value.trim()) {
+        const newCity = otraCiudadInput.value.trim();
+        const wasAdded = addNewCity(newCity);
+        
+        if (wasAdded) {
+            showNotification(`Nueva ciudad agregada: ${normalizeCityName(newCity)}`, 'success');
+        }
+    }
+    
     // Mostrar estado de carga
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
@@ -869,4 +895,111 @@ function setupCiudadField() {
             otraCiudadInput.value = '';
         }
     });
+    
+    // Validación inteligente del campo "otra ciudad"
+    otraCiudadInput.addEventListener('input', function() {
+        const value = this.value.trim();
+        
+        // Validar longitud máxima
+        if (value.length > 40) {
+            this.value = value.substring(0, 40);
+            showNotification('Máximo 40 caracteres permitidos', 'error');
+            return;
+        }
+        
+        // Validar caracteres especiales (solo letras, espacios y guiones)
+        const cleanValue = value.replace(/[^a-zA-Z\s\-]/g, '');
+        if (cleanValue !== value) {
+            this.value = cleanValue;
+            showNotification('Solo se permiten letras, espacios y guiones', 'error');
+            return;
+        }
+    });
+    
+    // Validación al perder el foco
+    otraCiudadInput.addEventListener('blur', function() {
+        const value = this.value.trim();
+        if (value) {
+            const normalizedValue = normalizeCityName(value);
+            const existingCity = findExistingCity(normalizedValue);
+            
+            if (existingCity) {
+                // Si la ciudad ya existe, seleccionarla automáticamente
+                ciudadSelect.value = existingCity;
+                otraCiudadContainer.style.display = 'none';
+                otraCiudadInput.required = false;
+                otraCiudadInput.value = '';
+                showNotification(`Ciudad encontrada: ${existingCity}`, 'success');
+            } else {
+                // Normalizar el nombre de la ciudad
+                this.value = normalizedValue;
+            }
+        }
+    });
+}
+
+// Función para normalizar nombres de ciudades
+function normalizeCityName(cityName) {
+    return cityName
+        .toLowerCase()
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+}
+
+// Función para buscar ciudad existente (case-insensitive)
+function findExistingCity(cityName) {
+    const normalizedInput = cityName.toLowerCase();
+    return ciudadesList.find(city => city.toLowerCase() === normalizedInput);
+}
+
+// Función para agregar nueva ciudad a la lista
+function addNewCity(cityName) {
+    const normalizedCity = normalizeCityName(cityName);
+    
+    // Verificar si ya existe
+    if (!findExistingCity(normalizedCity)) {
+        ciudadesList.push(normalizedCity);
+        updateCiudadSelect();
+        console.log(`Nueva ciudad agregada: ${normalizedCity}`);
+        return true;
+    }
+    return false;
+}
+
+// Función para actualizar el select de ciudades
+function updateCiudadSelect() {
+    const ciudadSelect = document.getElementById('ciudad');
+    const currentValue = ciudadSelect.value;
+    
+    // Guardar las opciones existentes excepto "Otra"
+    const options = Array.from(ciudadSelect.options);
+    const otraOption = options.find(option => option.value === 'Otra');
+    
+    // Limpiar el select
+    ciudadSelect.innerHTML = '';
+    
+    // Agregar opción por defecto
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'Selecciona tu ciudad';
+    ciudadSelect.appendChild(defaultOption);
+    
+    // Agregar ciudades ordenadas alfabéticamente
+    ciudadesList.sort().forEach(ciudad => {
+        const option = document.createElement('option');
+        option.value = ciudad;
+        option.textContent = `${ciudad}, NJ`;
+        ciudadSelect.appendChild(option);
+    });
+    
+    // Agregar opción "Otra" al final
+    if (otraOption) {
+        ciudadSelect.appendChild(otraOption);
+    }
+    
+    // Restaurar valor seleccionado si aún existe
+    if (currentValue && ciudadesList.includes(currentValue)) {
+        ciudadSelect.value = currentValue;
+    }
 } 
