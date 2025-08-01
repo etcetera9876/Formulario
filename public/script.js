@@ -15,9 +15,7 @@ const ejemploModal = document.getElementById('ejemploModal');
 const closeEjemploBtn = document.getElementById('closeEjemplo');
 
 // Elementos de los nuevos modales
-const emailEjemploBtn = document.getElementById('emailEjemploBtn');
-const emailEjemploModal = document.getElementById('emailEjemploModal');
-const closeEmailEjemploBtn = document.getElementById('closeEmailEjemplo');
+
 
 // Variables globales
 let selectedFiles = [];
@@ -55,14 +53,7 @@ function setupEventListeners() {
         }
     });
     
-    // Modal de ejemplo de email
-    emailEjemploBtn.addEventListener('click', showEmailEjemploModal);
-    closeEmailEjemploBtn.addEventListener('click', closeEmailEjemploModal);
-    window.addEventListener('click', function(event) {
-        if (event.target === emailEjemploModal) {
-            closeEmailEjemploModal();
-        }
-    });
+
     
     // Configurar funcionalidades especiales de los campos
     setupSpecialFieldFeatures();
@@ -594,15 +585,7 @@ function closeEjemploModal() {
     ejemploModal.style.display = 'none';
 }
 
-function showEmailEjemploModal() {
-    emailEjemploModal.style.display = 'block';
-    const modalContent = emailEjemploModal.querySelector('.modal-content');
-    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
-}
 
-function closeEmailEjemploModal() {
-    emailEjemploModal.style.display = 'none';
-}
 
 
 
@@ -796,7 +779,7 @@ function setupDatePicker() {
     function confirmDate() {
         if (selectedYear && selectedMonth && selectedDay) {
             const date = new Date(selectedYear, selectedMonth - 1, selectedDay);
-            const formattedDate = `${selectedDay.toString().padStart(2, '0')}/${(selectedMonth).toString().padStart(2, '0')}/${selectedYear}`;
+            const formattedDate = `${(selectedMonth).toString().padStart(2, '0')}/${selectedDay.toString().padStart(2, '0')}/${selectedYear}`;
             
             dateInput.value = formattedDate;
             closeDatePicker();
