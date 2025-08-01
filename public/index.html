@@ -81,6 +81,66 @@
                     </div>
 
                     <div class="form-group">
+                        <div class="label-with-button">
+                            <label for="ciudad">¿En qué ciudad vives? *</label>
+                            <button type="button" id="ciudadEjemploBtn" class="btn-ejemplo">
+                                <i class="fas fa-question-circle"></i> Ejemplo
+                            </button>
+                        </div>
+                        <select id="ciudad" name="ciudad" required>
+                            <option value="">Selecciona tu ciudad</option>
+                            <option value="Union City">Union City, NJ</option>
+                            <option value="North Bergen">North Bergen, NJ</option>
+                            <option value="Secaucus">Secaucus, NJ</option>
+                            <option value="Jersey City">Jersey City, NJ</option>
+                            <option value="Hoboken">Hoboken, NJ</option>
+                            <option value="Bayonne">Bayonne, NJ</option>
+                            <option value="West New York">West New York, NJ</option>
+                            <option value="Weehawken">Weehawken, NJ</option>
+                            <option value="Guttenberg">Guttenberg, NJ</option>
+                            <option value="Kearny">Kearny, NJ</option>
+                            <option value="Harrison">Harrison, NJ</option>
+                            <option value="Newark">Newark, NJ</option>
+                            <option value="Elizabeth">Elizabeth, NJ</option>
+                            <option value="Paterson">Paterson, NJ</option>
+                            <option value="Clifton">Clifton, NJ</option>
+                            <option value="Passaic">Passaic, NJ</option>
+                            <option value="Hackensack">Hackensack, NJ</option>
+                            <option value="Paramus">Paramus, NJ</option>
+                            <option value="Ridgewood">Ridgewood, NJ</option>
+                            <option value="Teaneck">Teaneck, NJ</option>
+                            <option value="Fort Lee">Fort Lee, NJ</option>
+                            <option value="Englewood">Englewood, NJ</option>
+                            <option value="Bergenfield">Bergenfield, NJ</option>
+                            <option value="Dumont">Dumont, NJ</option>
+                            <option value="New Milford">New Milford, NJ</option>
+                            <option value="River Edge">River Edge, NJ</option>
+                            <option value="Oradell">Oradell, NJ</option>
+                            <option value="Emerson">Emerson, NJ</option>
+                            <option value="Westwood">Westwood, NJ</option>
+                            <option value="Hillsdale">Hillsdale, NJ</option>
+                            <option value="Park Ridge">Park Ridge, NJ</option>
+                            <option value="Woodcliff Lake">Woodcliff Lake, NJ</option>
+                            <option value="Montvale">Montvale, NJ</option>
+                            <option value="Old Tappan">Old Tappan, NJ</option>
+                            <option value="Norwood">Norwood, NJ</option>
+                            <option value="Northvale">Northvale, NJ</option>
+                            <option value="Harrington Park">Harrington Park, NJ</option>
+                            <option value="Closter">Closter, NJ</option>
+                            <option value="Alpine">Alpine, NJ</option>
+                            <option value="Tenafly">Tenafly, NJ</option>
+                            <option value="Cresskill">Cresskill, NJ</option>
+                            <option value="Demarest">Demarest, NJ</option>
+                            <option value="Haworth">Haworth, NJ</option>
+                            <option value="Otra">Otra ciudad (especificar)</option>
+                        </select>
+                        <div id="otraCiudadContainer" class="form-group" style="display: none;">
+                            <label for="otraCiudad">Especifica tu ciudad:</label>
+                            <input type="text" id="otraCiudad" name="otraCiudad" placeholder="Escribe el nombre de tu ciudad">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label for="genero">Género</label>
                         <select id="genero" name="genero">
                             <option value="">Selecciona una opción</option>
@@ -216,6 +276,60 @@
                         <div class="ejemplo-note">
                             <i class="fas fa-lightbulb"></i>
                             <strong>Consejo:</strong> Escribe tu nombre exactamente como aparece en tu documento oficial de identidad.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de Ejemplo de Ciudad -->
+        <div id="ciudadEjemploModal" class="modal">
+            <div class="modal-content ejemplo-modal">
+                <span class="close" id="closeCiudadEjemplo">&times;</span>
+                <h2><i class="fas fa-map-marker-alt"></i> Ejemplo de Ciudad</h2>
+                <div class="ejemplo-content">
+                    <div class="ciudad-example">
+                        <div class="ciudad-visual">
+                            <div class="ciudad-header">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Ubicación Correcta</span>
+                            </div>
+                            <div class="ciudad-examples">
+                                <div class="ciudad-item correct">
+                                    <span class="ciudad-label">✅ Correcto:</span>
+                                    <span class="ciudad-value">Union City, NJ</span>
+                                </div>
+                                <div class="ciudad-item correct">
+                                    <span class="ciudad-label">✅ Correcto:</span>
+                                    <span class="ciudad-value">North Bergen, NJ</span>
+                                </div>
+                                <div class="ciudad-item correct">
+                                    <span class="ciudad-label">✅ Correcto:</span>
+                                    <span class="ciudad-value">Secaucus, NJ</span>
+                                </div>
+                                <div class="ciudad-item incorrect">
+                                    <span class="ciudad-label">❌ Incorrecto:</span>
+                                    <span class="ciudad-value">New Jersey</span>
+                                    <span class="ciudad-note">(Es un estado, no una ciudad)</span>
+                                </div>
+                                <div class="ciudad-item incorrect">
+                                    <span class="ciudad-label">❌ Incorrecto:</span>
+                                    <span class="ciudad-value">NJ</span>
+                                    <span class="ciudad-note">(Es la abreviatura del estado)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ejemplo-instructions">
+                        <h3><i class="fas fa-info-circle"></i> Cómo seleccionar tu ciudad:</h3>
+                        <ul>
+                            <li><strong>Selecciona tu ciudad:</strong> Del menú desplegable</li>
+                            <li><strong>Si no está tu ciudad:</strong> Elige "Otra ciudad (especificar)"</li>
+                            <li><strong>Formato correcto:</strong> Nombre de la ciudad, NJ</li>
+                        </ul>
+                        <div class="ejemplo-note">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Consejo:</strong> Busca tu ciudad en el menú desplegable. Si no la encuentras, selecciona "Otra ciudad" y escribe el nombre completo.
                         </div>
                     </div>
                 </div>

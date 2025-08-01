@@ -15,7 +15,9 @@ const ejemploModal = document.getElementById('ejemploModal');
 const closeEjemploBtn = document.getElementById('closeEjemplo');
 
 // Elementos de los nuevos modales
-
+const ciudadEjemploBtn = document.getElementById('ciudadEjemploBtn');
+const ciudadEjemploModal = document.getElementById('ciudadEjemploModal');
+const closeCiudadEjemploBtn = document.getElementById('closeCiudadEjemplo');
 
 // Variables globales
 let selectedFiles = [];
@@ -52,11 +54,23 @@ function setupEventListeners() {
             closeEjemploModal();
         }
     });
+
+    // Modal de ejemplo de ciudad
+    ciudadEjemploBtn.addEventListener('click', showCiudadEjemploModal);
+    closeCiudadEjemploBtn.addEventListener('click', closeCiudadEjemploModal);
+    window.addEventListener('click', function(event) {
+        if (event.target === ciudadEjemploModal) {
+            closeCiudadEjemploModal();
+        }
+    });
     
 
     
     // Configurar funcionalidades especiales de los campos
     setupSpecialFieldFeatures();
+    
+    // Configurar funcionalidad del campo de ciudad
+    setupCiudadField();
     
     // Validación en tiempo real
     setupRealTimeValidation();
@@ -537,6 +551,17 @@ function showPreview() {
     previewHTML += `<p><strong>Email:</strong> ${formData.get('email') || 'No especificado'}</p>`;
     previewHTML += `<p><strong>Teléfono:</strong> ${formData.get('telefono') || 'No especificado'}</p>`;
     previewHTML += `<p><strong>Fecha de Nacimiento:</strong> ${formData.get('fechaNacimiento') || 'No especificado'}</p>`;
+    
+    // Ciudad
+    const ciudad = formData.get('ciudad');
+    const otraCiudad = formData.get('otraCiudad');
+    if (ciudad === 'Otra' && otraCiudad) {
+        previewHTML += `<p><strong>Ciudad:</strong> ${otraCiudad}</p>`;
+    } else if (ciudad) {
+        previewHTML += `<p><strong>Ciudad:</strong> ${ciudad}</p>`;
+    } else {
+        previewHTML += `<p><strong>Ciudad:</strong> No especificado</p>`;
+    }
     previewHTML += `<p><strong>Género:</strong> ${formData.get('genero') || 'No especificado'}</p>`;
     
     // Intereses
@@ -583,6 +608,16 @@ function showEjemploModal() {
 
 function closeEjemploModal() {
     ejemploModal.style.display = 'none';
+}
+
+function showCiudadEjemploModal() {
+    ciudadEjemploModal.style.display = 'block';
+    const modalContent = ciudadEjemploModal.querySelector('.modal-content');
+    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
+}
+
+function closeCiudadEjemploModal() {
+    ciudadEjemploModal.style.display = 'none';
 }
 
 
@@ -817,4 +852,21 @@ const previewStyles = `
     </style>
 `;
 
-document.head.insertAdjacentHTML('beforeend', previewStyles); 
+document.head.insertAdjacentHTML('beforeend', previewStyles);
+
+function setupCiudadField() {
+    const ciudadSelect = document.getElementById('ciudad');
+    const otraCiudadContainer = document.getElementById('otraCiudadContainer');
+    const otraCiudadInput = document.getElementById('otraCiudad');
+    
+    ciudadSelect.addEventListener('change', function() {
+        if (this.value === 'Otra') {
+            otraCiudadContainer.style.display = 'block';
+            otraCiudadInput.required = true;
+        } else {
+            otraCiudadContainer.style.display = 'none';
+            otraCiudadInput.required = false;
+            otraCiudadInput.value = '';
+        }
+    });
+} 

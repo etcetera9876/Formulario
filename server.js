@@ -53,11 +53,12 @@ app.post('/submit-form', upload.array('files', 5), async (req, res) => {
       formData.nombre || '',
       formData.email || '',
       formData.telefono || '',
-      formData.edad || '',
+      formData.fechaNacimiento || '',
+      formData.ciudad || '',
+      formData.otraCiudad || '',
       formData.genero || '',
       formData.intereses ? formData.intereses.join(', ') : '',
       formData.comentarios || '',
-      formData.fecha || '',
       formData.archivos ? files.map(f => f.filename).join(', ') : ''
     ];
 

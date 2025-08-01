@@ -1411,4 +1411,105 @@ textarea.error {
     letter-spacing: 0.5px;
 }
 
- 
+/* Estilos mejorados para select */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+select option {
+    padding: 8px 12px;
+}
+
+/* Estilos para el modal de ciudad */
+.ciudad-example {
+    margin-bottom: 20px;
+}
+
+.ciudad-visual {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #e1e5e9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ciudad-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.ciudad-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ciudad-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    transition: all 0.3s ease;
+}
+
+.ciudad-item.correct {
+    background: rgba(40, 167, 69, 0.1);
+    border-left-color: #28a745;
+}
+
+.ciudad-item.incorrect {
+    background: rgba(220, 53, 69, 0.1);
+    border-left-color: #dc3545;
+}
+
+.ciudad-label {
+    font-weight: 600;
+    min-width: 100px;
+}
+
+.ciudad-value {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.ciudad-note {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-left: auto;
+}
+
+/* Responsive para el modal de ciudad */
+@media (max-width: 768px) {
+    .ciudad-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .ciudad-label {
+        min-width: auto;
+    }
+    
+    .ciudad-note {
+        margin-left: 0;
+        margin-top: 4px;
+    }
+}
