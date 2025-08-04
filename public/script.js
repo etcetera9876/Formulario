@@ -14,25 +14,22 @@ const ejemploBtn = document.getElementById('ejemploBtn');
 const ejemploModal = document.getElementById('ejemploModal');
 const closeEjemploBtn = document.getElementById('closeEjemplo');
 
-// Elementos de los nuevos modales
-const ciudadEjemploBtn = document.getElementById('ciudadEjemploBtn');
-const ciudadEjemploModal = document.getElementById('ciudadEjemploModal');
-const closeCiudadEjemploBtn = document.getElementById('closeCiudadEjemplo');
+
 
 // Variables globales
 let selectedFiles = [];
 
 // Lista dinámica de ciudades (se actualiza automáticamente)
 let ciudadesList = [
-    'Union City', 'North Bergen', 'Secaucus', 'Jersey City', 'Hoboken',
-    'Bayonne', 'West New York', 'Weehawken', 'Guttenberg', 'Kearny',
-    'Harrison', 'Newark', 'Elizabeth', 'Paterson', 'Clifton',
-    'Passaic', 'Hackensack', 'Paramus', 'Ridgewood', 'Teaneck',
-    'Fort Lee', 'Englewood', 'Bergenfield', 'Dumont', 'New Milford',
-    'River Edge', 'Oradell', 'Emerson', 'Westwood', 'Hillsdale',
-    'Park Ridge', 'Woodcliff Lake', 'Montvale', 'Old Tappan', 'Norwood',
-    'Northvale', 'Harrington Park', 'Closter', 'Alpine', 'Tenafly',
-    'Cresskill', 'Demarest', 'Haworth'
+    'Alpine', 'Bayonne', 'Bergenfield', 'Clifton', 'Closter',
+    'Cresskill', 'Demarest', 'Dumont', 'Elizabeth', 'Emerson',
+    'Englewood', 'Fort Lee', 'Guttenberg', 'Hackensack', 'Harrison',
+    'Harrington Park', 'Haworth', 'Hillsdale', 'Hoboken', 'Jersey City',
+    'Kearny', 'Montvale', 'New Milford', 'Newark', 'Norwood',
+    'North Bergen', 'Northvale', 'Old Tappan', 'Oradell', 'Paramus',
+    'Park Ridge', 'Passaic', 'Paterson', 'Ridgewood', 'River Edge',
+    'Secaucus', 'Teaneck', 'Tenafly', 'Union City', 'Weehawken',
+    'West New York', 'Westwood', 'Woodcliff Lake'
 ];
 
 // Event Listeners
@@ -68,14 +65,7 @@ function setupEventListeners() {
         }
     });
 
-    // Modal de ejemplo de ciudad
-    ciudadEjemploBtn.addEventListener('click', showCiudadEjemploModal);
-    closeCiudadEjemploBtn.addEventListener('click', closeCiudadEjemploModal);
-    window.addEventListener('click', function(event) {
-        if (event.target === ciudadEjemploModal) {
-            closeCiudadEjemploModal();
-        }
-    });
+
     
 
     
@@ -84,6 +74,12 @@ function setupEventListeners() {
     
     // Configurar funcionalidad del campo de ciudad
     setupCiudadField();
+    
+    // Inicializar el select de ciudades ordenado alfabéticamente
+    updateCiudadSelect();
+    
+    // Configurar lógica de movilidad
+    setupMovilidadLogic();
     
     // Validación en tiempo real
     setupRealTimeValidation();
@@ -577,13 +573,148 @@ function showPreview() {
     }
     previewHTML += `<p><strong>Género:</strong> ${formData.get('genero') || 'No especificado'}</p>`;
     
-    // Intereses
-    previewHTML += '<h3>Intereses</h3>';
-    const intereses = formData.getAll('intereses');
-    if (intereses.length > 0) {
-        previewHTML += `<p><strong>Intereses:</strong> ${intereses.join(', ')}</p>`;
-    } else {
-        previewHTML += '<p><strong>Intereses:</strong> Ninguno seleccionado</p>';
+    // Disponibilidad de Trabajo
+    const diasDisponibles = formData.getAll('dias_disponibles');
+    const turnoPreferido = formData.get('turno_preferido');
+    
+    if (diasDisponibles.length > 0 || turnoPreferido) {
+        const diasLabels = {
+            'lunes': 'Lunes',
+            'martes': 'Martes',
+            'miercoles': 'Miércoles',
+            'jueves': 'Jueves',
+            'viernes': 'Viernes',
+            'sabado': 'Sábado',
+            'domingo': 'Domingo'
+        };
+
+        const turnosLabels = {
+            'manana': 'Mañana',
+            'tarde': 'Tarde',
+            'noche': 'Noche',
+            'flexible': 'Flexible'
+        };
+        
+        previewHTML += '<h3>Disponibilidad de Trabajo</h3>';
+        
+        if (diasDisponibles.length > 0) {
+            const diasTexto = diasDisponibles.map(dia => diasLabels[dia] || dia).join(', ');
+            previewHTML += `<p><strong>Días disponibles:</strong> ${diasTexto}</p>`;
+        } else {
+            previewHTML += `<p><strong>Días disponibles:</strong> No especificados</p>`;
+        }
+        
+        if (turnoPreferido) {
+            previewHTML += `<p><strong>Turno preferido:</strong> ${turnosLabels[turnoPreferido] || turnoPreferido}</p>`;
+        } else {
+            previewHTML += `<p><strong>Turno preferido:</strong> No especificado</p>`;
+        }
+    }
+    
+    // Movilidad
+    const movilidadTrabajo = formData.get('movilidad_trabajo');
+    const puedeRideOtros = formData.get('puede_ride_otros');
+    
+    if (movilidadTrabajo) {
+        const movilidadLabels = {
+            'carro_propio': 'Tengo carro propio',
+            'familiar_ride': 'Tengo un familiar que me hace ride',
+            'no_carro': 'No tengo carro',
+            'bus_uber': 'Voy en bus/Uber'
+        };
+        previewHTML += `<p><strong>Movilidad para trabajar:</strong> ${movilidadLabels[movilidadTrabajo] || movilidadTrabajo}</p>`;
+        
+        if (puedeRideOtros && (movilidadTrabajo === 'carro_propio' || movilidadTrabajo === 'familiar_ride')) {
+            previewHTML += `<p><strong>¿Puede hacer ride a otras personas?</strong> ${puedeRideOtros === 'si' ? 'Sí' : 'No'}</p>`;
+        }
+    }
+    
+    // Restricciones de disponibilidad
+    const tieneRestricciones = formData.get('tiene_restricciones');
+    const restriccionesDetalle = formData.get('restricciones_detalle');
+    
+    if (tieneRestricciones) {
+        previewHTML += `<p><strong>¿Tiene alguna restricción en su disponibilidad para trabajar?</strong> ${tieneRestricciones === 'si' ? 'Sí' : 'No'}</p>`;
+        
+        if (tieneRestricciones === 'si' && restriccionesDetalle) {
+            previewHTML += `<p><strong>Restricciones:</strong> ${restriccionesDetalle}</p>`;
+        }
+    }
+    
+    // Trabajos Anteriores
+    const trabajosAnteriores = formData.getAll('trabajos_anteriores');
+    
+    if (trabajosAnteriores.length > 0) {
+        const trabajosLabels = {
+            'recogedor': 'Recogedor',
+            'empacador': 'Empacador',
+            'carga': 'Carga',
+            'descarga': 'Descarga',
+            'almacenero': 'Almacenero',
+            'ensamblador': 'Ensamblador',
+            'empaquetador': 'Empaquetador',
+            'limpieza': 'Limpieza',
+            'jardineria': 'Jardinería',
+            'recepcionista': 'Recepcionista',
+            'receiving': 'Recepción de Mercancía',
+            'shipping': 'Envío de Mercancía',
+            'sorting': 'Clasificación',
+            'picker': 'Recolector',
+            'servicio_cliente': 'Servicio al Cliente',
+            'vendedor': 'Vendedor'
+        };
+        
+        const trabajosTexto = trabajosAnteriores.map(trabajo => trabajosLabels[trabajo] || trabajo).join(', ');
+        previewHTML += `<p><strong>¿En qué has trabajado anteriormente?</strong> ${trabajosTexto}</p>`;
+    }
+    
+    // Experiencia en Puestos Específicos
+    const experienciaPuestos = formData.getAll('experiencia_puestos');
+    
+    if (experienciaPuestos.length > 0) {
+        const puestosLabels = {
+            'auxiliar_administrativo': 'Auxiliar Administrativo',
+            'conductor_elevadoras': 'Conductor de Máquinas Elevadoras',
+            'operario_maquinas': 'Operario de Máquinas Industriales',
+            'ejecutivo_cuentas': 'Ejecutivo de Cuentas',
+            'inventory_control': 'Inventory Control',
+            'it_support': 'IT Support'
+        };
+        
+        previewHTML += '<h3>Experiencia en Puestos Específicos</h3>';
+        const puestosTexto = experienciaPuestos.map(puesto => puestosLabels[puesto] || puesto).join(', ');
+        previewHTML += `<p><strong>Puestos con experiencia:</strong> ${puestosTexto}</p>`;
+    }
+    
+    // Habilidades y Experiencia
+    const sabeComputadora = formData.get('sabe_computadora');
+    const experienciaMaquinaria = formData.get('experiencia_maquinaria');
+    const experienciaLimpieza = formData.get('experiencia_limpieza');
+    const pasaExamenLogica = formData.get('pasa_examen_logica');
+    
+    if (sabeComputadora || experienciaMaquinaria || experienciaLimpieza || pasaExamenLogica) {
+        previewHTML += '<h3>Habilidades y Experiencia</h3>';
+        
+        if (sabeComputadora) {
+            previewHTML += `<p><strong>¿Sabes usar la computadora?</strong> ${sabeComputadora === 'si' ? 'Sí' : 'No'}</p>`;
+        }
+        
+        if (experienciaMaquinaria) {
+            previewHTML += `<p><strong>¿Tienes experiencia operando maquinaria industrial?</strong> ${experienciaMaquinaria === 'si' ? 'Sí' : 'No'}</p>`;
+        }
+        
+        if (experienciaLimpieza) {
+            previewHTML += `<p><strong>¿Tienes experiencia limpiando?</strong> ${experienciaLimpieza === 'si' ? 'Sí' : 'No'}</p>`;
+        }
+        
+        if (pasaExamenLogica) {
+            const logicaLabels = {
+                'si': 'Sí',
+                'tal_vez': 'Tal vez',
+                'no': 'No'
+            };
+            previewHTML += `<p><strong>¿Pasas un examen de lógica, razonamiento y matemáticas?</strong> ${logicaLabels[pasaExamenLogica] || pasaExamenLogica}</p>`;
+        }
     }
     
     previewHTML += `<p><strong>Fecha de Nacimiento:</strong> ${formData.get('fecha') || 'No especificado'}</p>`;
@@ -592,9 +723,9 @@ function showPreview() {
     previewHTML += '<h3>Comentarios</h3>';
     previewHTML += `<p><strong>Comentarios:</strong> ${formData.get('comentarios') || 'No especificado'}</p>`;
     
-    // Archivos
+    // Currículum
     if (selectedFiles.length > 0) {
-        previewHTML += '<h3>Archivos</h3>';
+        previewHTML += '<h3>Currículum</h3>';
         previewHTML += '<ul>';
         selectedFiles.forEach(file => {
             previewHTML += `<li>${file.name} (${formatFileSize(file.size)})</li>`;
@@ -623,15 +754,7 @@ function closeEjemploModal() {
     ejemploModal.style.display = 'none';
 }
 
-function showCiudadEjemploModal() {
-    ciudadEjemploModal.style.display = 'block';
-    const modalContent = ciudadEjemploModal.querySelector('.modal-content');
-    modalContent.style.animation = 'modalSlideIn 0.3s ease-out';
-}
 
-function closeCiudadEjemploModal() {
-    ciudadEjemploModal.style.display = 'none';
-}
 
 
 
@@ -1002,4 +1125,52 @@ function updateCiudadSelect() {
     if (currentValue && ciudadesList.includes(currentValue)) {
         ciudadSelect.value = currentValue;
     }
+}
+
+function setupMovilidadLogic() {
+    const movilidadInputs = document.querySelectorAll('input[name="movilidad_trabajo"]');
+    const rideOtrosContainer = document.getElementById('ride_otros_container');
+    const rideOtrosInputs = document.querySelectorAll('input[name="puede_ride_otros"]');
+    
+    const restriccionesInputs = document.querySelectorAll('input[name="tiene_restricciones"]');
+    const restriccionesContainer = document.getElementById('restricciones_container');
+    const restriccionesDetalle = document.getElementById('restricciones_detalle');
+    
+    movilidadInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const selectedValue = this.value;
+            
+            // Mostrar/ocultar la pregunta adicional
+            if (selectedValue === 'carro_propio' || selectedValue === 'familiar_ride') {
+                rideOtrosContainer.style.display = 'block';
+                // Hacer la pregunta requerida
+                rideOtrosInputs.forEach(radio => {
+                    radio.required = true;
+                });
+            } else {
+                rideOtrosContainer.style.display = 'none';
+                // Desmarcar y hacer no requerida la pregunta
+                rideOtrosInputs.forEach(radio => {
+                    radio.checked = false;
+                    radio.required = false;
+                });
+            }
+        });
+    });
+    
+    restriccionesInputs.forEach(input => {
+        input.addEventListener('change', function() {
+            const selectedValue = this.value;
+            
+            // Mostrar/ocultar el campo de texto para restricciones
+            if (selectedValue === 'si') {
+                restriccionesContainer.style.display = 'block';
+                restriccionesDetalle.required = true;
+            } else {
+                restriccionesContainer.style.display = 'none';
+                restriccionesDetalle.required = false;
+                restriccionesDetalle.value = '';
+            }
+        });
+    });
 } 

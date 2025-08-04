@@ -57,14 +57,25 @@ app.post('/submit-form', upload.array('files', 5), async (req, res) => {
       formData.ciudad || '',
       formData.otraCiudad || '',
       formData.genero || '',
-      formData.intereses ? formData.intereses.join(', ') : '',
+      formData.dias_disponibles ? formData.dias_disponibles.join(', ') : '',
+      formData.turno_preferido || '',
+      formData.movilidad_trabajo || '',
+      formData.puede_ride_otros || '',
+      formData.tiene_restricciones || '',
+      formData.restricciones_detalle || '',
+      formData.experiencia_puestos ? formData.experiencia_puestos.join(', ') : '',
+      formData.trabajos_anteriores ? formData.trabajos_anteriores.join(', ') : '',
+      formData.sabe_computadora || '',
+      formData.experiencia_maquinaria || '',
+      formData.experiencia_limpieza || '',
+      formData.pasa_examen_logica || '',
       formData.comentarios || '',
       formData.archivos ? files.map(f => f.filename).join(', ') : ''
     ];
 
     // ID de tu Google Sheet (necesitarás reemplazar esto)
     const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-    const range = 'Respuestas!A:J'; // Ajusta según tus columnas
+    const range = 'Respuestas!A:V'; // Ajusta según tus columnas
 
     await sheets.spreadsheets.values.append({
       spreadsheetId,
@@ -95,7 +106,7 @@ app.post('/submit-form', upload.array('files', 5), async (req, res) => {
 app.get('/stats', async (req, res) => {
   try {
     const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-    const range = 'Respuestas!A:J';
+    const range = 'Respuestas!A:V';
     
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
