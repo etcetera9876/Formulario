@@ -1,253 +1,181 @@
-# Formulario Personalizado con Google Sheets
+# 📋 Formulario de Reclutamiento - JobConnection Services
 
-Un formulario web moderno y personalizable que envía las respuestas directamente a Google Sheets.
+## 🚀 **Descripción**
 
-## 🚀 Características
+Formulario web moderno y responsive para recopilar información de candidatos. Funciona completamente en el navegador sin necesidad de servidor backend.
 
-- **Diseño Moderno**: Interfaz atractiva y responsive
-- **Múltiples Tipos de Preguntas**: Texto, email, teléfono, números, fechas, opciones múltiples, archivos
-- **Validación en Tiempo Real**: Validación instantánea de campos
-- **Subida de Archivos**: Drag & drop con límites de tamaño
-- **Vista Previa**: Revisar respuestas antes de enviar
-- **Integración con Google Sheets**: Respuestas automáticas en hojas de cálculo
-- **Notificaciones**: Feedback visual para el usuario
-- **Responsive**: Funciona en móviles y tablets
+### **✅ Características:**
+- **Frontend puro** - Sin servidor necesario
+- **Responsive design** - Optimizado para móviles
+- **Google Sheets integration** - Datos automáticos
+- **Validación en tiempo real** - Campos inteligentes
+- **Subida de archivos** - Currículums y documentos
+- **Panel de administración** - Gestión de datos
+- **QR Code ready** - Perfecto para eventos
 
-## 📋 Requisitos Previos
+## 📱 **Cómo Usar**
 
-- Node.js (versión 14 o superior)
-- npm o yarn
-- Cuenta de Google con Google Sheets API habilitada
+### **Para Usuarios (Candidatos):**
+1. **Abrir** el formulario en cualquier navegador
+2. **Completar** todos los campos requeridos
+3. **Subir archivos** (opcional)
+4. **Enviar formulario** - Datos se guardan automáticamente
 
-## 🛠️ Instalación
+### **Para Administradores:**
+1. **Botón de administración** (⚙️) en esquina superior derecha
+2. **Panel de control** con estadísticas
+3. **Descargar datos** en formato CSV
+4. **Gestionar submisiones**
 
-1. **Clonar o descargar el proyecto**
-   ```bash
-   git clone <tu-repositorio>
-   cd Formulario
-   ```
+## 🔧 **Configuración**
 
-2. **Instalar dependencias**
-   ```bash
-   npm install
-   ```
-
-3. **Configurar Google Sheets API**
-
-   ### Paso 1: Crear un proyecto en Google Cloud Console
-   - Ve a [Google Cloud Console](https://console.cloud.google.com/)
-   - Crea un nuevo proyecto o selecciona uno existente
-   - Habilita la Google Sheets API
-
-   ### Paso 2: Crear credenciales de servicio
-   - Ve a "APIs y servicios" > "Credenciales"
-   - Haz clic en "Crear credenciales" > "Cuenta de servicio"
-   - Completa la información y descarga el archivo JSON
-   - Renombra el archivo a `credentials.json` y colócalo en la raíz del proyecto
-
-   ### Paso 3: Crear Google Sheet
-   - Crea una nueva hoja de cálculo en Google Sheets
-   - Comparte la hoja con la cuenta de servicio (email del archivo credentials.json)
-   - Copia el ID de la hoja de la URL
-
-4. **Configurar variables de entorno**
-   ```bash
-   cp env.example .env
-   ```
-   
-   Edita el archivo `.env` y agrega tu ID de Google Sheet:
-   ```
-   GOOGLE_SHEET_ID=tu_id_de_google_sheet_aqui
-   ```
-
-5. **Crear carpeta para archivos**
-   ```bash
-   mkdir uploads
-   ```
-
-## 🚀 Ejecutar el Proyecto
-
-### Desarrollo
+### **1. Configuración Local:**
 ```bash
-npm run dev
+# Copiar archivo de configuración
+cp config.local.js config.js
 ```
 
-### Producción
-```bash
-npm start
+### **2. Configuración de Google Sheets:**
+1. **Crear proyecto** en Google Cloud Console
+2. **Activar Google Sheets API**
+3. **Crear API Key** con restricciones
+4. **Editar config.js** con tus credenciales
+
+### **3. Configurar Google Sheet:**
+1. **Hacer público** el spreadsheet
+2. **Compartir** con "Cualquier persona con el enlace puede ver"
+
+## 🌐 **Despliegue Gratuito**
+
+### **Opción 1: GitHub Pages (Recomendado)**
+1. **Hacer público** el repositorio
+2. **Settings** > **Pages**
+3. **Source:** "Deploy from a branch"
+4. **Branch:** `main`
+5. **URL:** `https://etcetera9876.github.io/Formulario/`
+
+### **Opción 2: Netlify**
+1. **Ir a:** https://netlify.com
+2. **Drag & drop** la carpeta del proyecto
+3. **URL automática** generada
+
+### **Opción 3: Vercel**
+1. **Ir a:** https://vercel.com
+2. **Conectar** con GitHub
+3. **Deploy automático**
+
+## 🔒 **Seguridad**
+
+### **✅ Datos Protegidos:**
+- `config.js` - **NO se sube a GitHub** (placeholders)
+- `config.local.js` - **NO se sube a GitHub** (datos reales)
+- `uploads/` - **NO se sube a GitHub** (archivos privados)
+
+### **✅ Archivos Públicos:**
+- `config.example.js` - Plantilla sin datos reales
+- `index.html` - Formulario público
+- `script.js` - Código sin credenciales
+- `styles.css` - Estilos públicos
+
+## 📊 **Funcionalidades**
+
+### **Campos del Formulario:**
+- **Información Personal:** Nombre, email, teléfono, fecha nacimiento, género, ciudad
+- **Disponibilidad:** Días de la semana, turnos preferidos
+- **Movilidad:** Opciones de transporte, capacidad de dar rides
+- **Restricciones:** Limitaciones de horario o disponibilidad
+- **Habilidades:** Computadora, maquinaria, limpieza, exámenes
+- **Experiencia:** Puestos específicos, trabajos anteriores
+- **Archivos:** Subida de currículum
+- **Comentarios:** Información adicional
+
+### **Características Avanzadas:**
+- **Validación en tiempo real** de campos
+- **Auto-completado** de emails con sugerencias
+- **Formato automático** de teléfonos
+- **Selector de fecha** personalizado
+- **Lista inteligente** de ciudades con auto-completado
+- **Subida de archivos** con drag & drop
+- **Vista previa** antes de enviar
+- **Notificaciones** de éxito/error
+
+## 🎯 **Casos de Uso**
+
+### **Eventos de Reclutamiento:**
+1. **Configurar** el formulario en una tablet/laptop
+2. **Mostrar QR** para que los candidatos escaneen
+3. **Recopilar** información automáticamente
+4. **Descargar** datos al final del evento
+
+### **Reclutamiento Continuo:**
+1. **Compartir enlace** en redes sociales
+2. **Recibir** aplicaciones automáticamente
+3. **Revisar** panel de administración regularmente
+4. **Descargar** datos según necesidad
+
+## 📱 **Compatibilidad**
+
+### **Navegadores Soportados:**
+- ✅ Chrome (recomendado)
+- ✅ Firefox
+- ✅ Safari
+- ✅ Edge
+- ✅ Navegadores móviles
+
+### **Dispositivos:**
+- ✅ **Computadoras** (Windows, Mac, Linux)
+- ✅ **Tablets** (iPad, Android)
+- ✅ **Smartphones** (iOS, Android)
+
+## 🆘 **Solución de Problemas**
+
+### **Formulario no envía:**
+- Verificar que todos los campos requeridos estén completos
+- Revisar conexión a internet
+- Limpiar caché del navegador
+
+### **Datos no se guardan:**
+- Verificar espacio disponible en localStorage
+- Comprobar que JavaScript esté habilitado
+- Revisar consola del navegador para errores
+
+### **Google Sheets no funciona:**
+- Verificar configuración de API Key
+- Comprobar que el spreadsheet esté público
+- Revisar restricciones de dominio en Google Cloud Console
+
+## 📋 **Estructura del Proyecto**
+
+```
+Formulario/
+├── index.html          # Formulario principal
+├── script.js           # Lógica y funcionalidades
+├── styles.css          # Estilos y diseño
+├── config.js           # Configuración (NO se sube a GitHub)
+├── config.local.js     # Datos reales (NO se sube a GitHub)
+├── config.example.js   # Plantilla de configuración
+├── uploads/            # Archivos subidos (NO se sube a GitHub)
+│   ├── logo-corto.png  # Logo de la empresa
+│   └── .gitkeep        # Mantener carpeta
+├── netlify.toml        # Configuración para Netlify
+├── .gitignore          # Archivos excluidos de Git
+└── README.md           # Esta documentación
 ```
 
-El formulario estará disponible en: `http://localhost:3000`
+## 🚀 **Despliegue Rápido**
 
-## 📊 Configuración de Google Sheets
+### **Para uso inmediato:**
+1. **Descargar** todos los archivos
+2. **Copiar** `config.local.js` como `config.js`
+3. **Abrir** `index.html` en el navegador
+4. **¡Listo!**
 
-### Estructura de Columnas Recomendada
-
-Crea una hoja llamada "Respuestas" con las siguientes columnas:
-
-| A | B | C | D | E | F | G | H | I | J |
-|---|---|---|---|---|---|---|---|---|---|
-| Timestamp | Nombre | Email | Teléfono | Edad | Género | Intereses | Comentarios | Fecha | Archivos |
-
-### Configurar Encabezados
-
-En la primera fila de tu Google Sheet, agrega los encabezados:
-
-```
-Timestamp | Nombre | Email | Teléfono | Edad | Género | Intereses | Comentarios | Fecha | Archivos
-```
-
-## 🎨 Personalización
-
-### Modificar Preguntas
-
-Edita el archivo `public/index.html` para agregar, quitar o modificar preguntas:
-
-```html
-<!-- Ejemplo: Agregar una nueva pregunta -->
-<div class="form-group">
-    <label for="nueva-pregunta">Nueva Pregunta</label>
-    <input type="text" id="nueva-pregunta" name="nueva-pregunta">
-</div>
-```
-
-### Cambiar Estilos
-
-Modifica `public/styles.css` para personalizar colores, fuentes y diseño:
-
-```css
-/* Cambiar colores principales */
-:root {
-    --primary-color: #667eea;
-    --secondary-color: #764ba2;
-}
-```
-
-### Agregar Nuevos Tipos de Preguntas
-
-1. **Pregunta de escala (1-10)**
-   ```html
-   <div class="form-group">
-       <label for="satisfaccion">Nivel de Satisfacción (1-10)</label>
-       <input type="range" id="satisfaccion" name="satisfaccion" min="1" max="10" value="5">
-       <span id="satisfaccion-value">5</span>
-   </div>
-   ```
-
-2. **Pregunta de radio buttons**
-   ```html
-   <div class="form-group">
-       <label>¿Cómo nos conociste?</label>
-       <div class="radio-group">
-           <label class="radio-item">
-               <input type="radio" name="origen" value="redes-sociales">
-               <span class="radio-mark"></span>
-               Redes Sociales
-           </label>
-           <label class="radio-item">
-               <input type="radio" name="origen" value="recomendacion">
-               <span class="radio-mark"></span>
-               Recomendación
-           </label>
-       </div>
-   </div>
-   ```
-
-## 🔧 Configuración Avanzada
-
-### Límites de Archivos
-
-Modifica en `server.js`:
-```javascript
-const upload = multer({ 
-    storage: storage,
-    limits: {
-        fileSize: 10 * 1024 * 1024, // 10MB
-        files: 5 // Máximo 5 archivos
-    }
-});
-```
-
-### Validaciones Personalizadas
-
-Agrega validaciones en `public/script.js`:
-```javascript
-function validateField(e) {
-    const field = e.target;
-    const value = field.value.trim();
-    
-    // Tu validación personalizada aquí
-    if (field.name === 'mi-campo' && value.length < 3) {
-        showFieldError(field, 'Mínimo 3 caracteres');
-        return false;
-    }
-    
-    return true;
-}
-```
-
-## 📱 Características Responsive
-
-El formulario se adapta automáticamente a diferentes tamaños de pantalla:
-
-- **Desktop**: Diseño completo con columnas
-- **Tablet**: Ajuste de espaciado
-- **Móvil**: Diseño de una columna
-
-## 🔒 Seguridad
-
-- Validación del lado del cliente y servidor
-- Límites de tamaño de archivos
-- Sanitización de datos
-- CORS configurado
-
-## 🚀 Despliegue
-
-### Heroku
-1. Crea una app en Heroku
-2. Conecta tu repositorio
-3. Configura las variables de entorno en Heroku
-4. Sube el archivo `credentials.json`
-
-### Vercel
-1. Conecta tu repositorio a Vercel
-2. Configura las variables de entorno
-3. Asegúrate de que `credentials.json` esté incluido
-
-### Servidor VPS
-1. Sube los archivos a tu servidor
-2. Instala Node.js
-3. Ejecuta `npm install && npm start`
-4. Configura un proxy reverso con Nginx
-
-## 🐛 Solución de Problemas
-
-### Error de Google Sheets API
-- Verifica que el archivo `credentials.json` esté en la raíz
-- Asegúrate de que la API esté habilitada
-- Confirma que la cuenta de servicio tenga permisos en la hoja
-
-### Error de puerto
-- Cambia el puerto en `.env` si el 3000 está ocupado
-- Verifica que no haya otros servicios usando el puerto
-
-### Archivos no se suben
-- Verifica que la carpeta `uploads` exista
-- Confirma los permisos de escritura
-- Revisa los límites de tamaño
-
-## 📞 Soporte
-
-Si tienes problemas o preguntas:
-
-1. Revisa la sección de solución de problemas
-2. Verifica la configuración de Google Sheets
-3. Revisa los logs del servidor
-
-## 📄 Licencia
-
-MIT License - Puedes usar, modificar y distribuir libremente.
+### **Para uso en internet:**
+1. **Subir** a GitHub Pages, Netlify o Vercel
+2. **Configurar** Google Cloud Console
+3. **Generar** QR code para eventos
+4. **¡Compartir!**
 
 ---
 
-¡Disfruta tu formulario personalizado! 🎉 
+**¡El formulario está listo para usar en producción! 🎉** 
