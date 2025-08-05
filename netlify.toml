@@ -2,8 +2,8 @@
   publish = "."
 
 [build.environment]
-  GOOGLE_API_KEY = "AIzaSyC0kwwlL4-9OJrzh-l9GhvQ7yo2rFBTvRo"
-  GOOGLE_SHEET_ID = "1mBN9A0nxgza0im64VTXVyqwYVQ9mpXyKWBCVZvcUN7U"
+  GOOGLE_API_KEY = "TU_API_KEY_REAL_AQUI"
+  GOOGLE_SHEET_ID = "TU_SHEET_ID_REAL_AQUI"
 
 [[redirects]]
   from = "/*"
