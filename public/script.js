@@ -39,6 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // NO validar campos automáticamente al cargar la página
     // Los errores solo aparecerán al intentar enviar el formulario
+
+    // Agregar botón de administración después de un delay
+    setTimeout(() => {
+        addAdminButton();
+    }, 2000);
 });
 
 function setupEventListeners() {
@@ -764,59 +769,176 @@ async function handleFormSubmit(e) {
     e.preventDefault();
     
     if (!validateForm()) {
-        showNotification('Por favor, corrige los errores en el formulario', 'error');
         return;
     }
     
-    // Verificar si hay una nueva ciudad para agregar
-    const ciudadSelect = document.getElementById('ciudad');
-    const otraCiudadInput = document.getElementById('otraCiudad');
+    const submitBtn = document.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
     
-    if (ciudadSelect.value === 'Otra' && otraCiudadInput.value.trim()) {
-        const newCity = otraCiudadInput.value.trim();
-        const wasAdded = addNewCity(newCity);
-        
-        if (wasAdded) {
-            showNotification(`Nueva ciudad agregada: ${normalizeCityName(newCity)}`, 'success');
-        }
-    }
-    
-    // Mostrar estado de carga
+    // Mostrar loading
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
     
     try {
+        // Recopilar todos los datos del formulario
         const formData = new FormData(form);
+        const data = {};
         
-        // Agregar archivos seleccionados
-        selectedFiles.forEach(file => {
-            formData.append('files', file);
+        // Datos básicos
+        data.nombre = formData.get('nombre') || '';
+        data.email = formData.get('email') || '';
+        data.telefono = formData.get('telefono') || '';
+        data.fechaNacimiento = formData.get('fechaNacimiento') || '';
+        data.genero = formData.get('genero') || '';
+        data.ciudad = formData.get('ciudad') || '';
+        data.otraCiudad = formData.get('otraCiudad') || '';
+        
+        // Disponibilidad de trabajo
+        const diasDisponibles = [];
+        document.querySelectorAll('input[name="dias_disponibles"]:checked').forEach(checkbox => {
+            diasDisponibles.push(checkbox.value);
         });
+        data.dias_disponibles = diasDisponibles.join(', ');
         
-        const response = await fetch('/submit-form', {
-            method: 'POST',
-            body: formData
+        data.turno_preferido = formData.get('turno_preferido') || '';
+        
+        // Movilidad
+        data.movilidad_trabajo = formData.get('movilidad_trabajo') || '';
+        data.puede_ride_otros = formData.get('puede_ride_otros') || '';
+        
+        // Restricciones
+        data.tiene_restricciones = formData.get('tiene_restricciones') || '';
+        data.restricciones_detalle = formData.get('restricciones_detalle') || '';
+        
+        // Habilidades y experiencia
+        data.sabe_computadora = formData.get('sabe_computadora') || '';
+        data.experiencia_maquinaria = formData.get('experiencia_maquinaria') || '';
+        data.experiencia_limpieza = formData.get('experiencia_limpieza') || '';
+        data.pasa_examen_logica = formData.get('pasa_examen_logica') || '';
+        
+        // Experiencia en puestos específicos
+        const experienciaPuestos = [];
+        document.querySelectorAll('input[name="experiencia_puestos"]:checked').forEach(checkbox => {
+            experienciaPuestos.push(checkbox.value);
         });
+        data.experiencia_puestos = experienciaPuestos.join(', ');
         
-        const result = await response.json();
+        // Trabajos anteriores
+        const trabajosAnteriores = [];
+        document.querySelectorAll('input[name="trabajos_anteriores"]:checked').forEach(checkbox => {
+            trabajosAnteriores.push(checkbox.value);
+        });
+        data.trabajos_anteriores = trabajosAnteriores.join(', ');
         
-        if (result.success) {
-            showNotification('¡Formulario enviado exitosamente!', 'success');
-            form.reset();
-            selectedFiles = [];
-            updateFileList();
-        } else {
-            showNotification(result.message || 'Error al enviar el formulario', 'error');
-        }
+        // Archivos
+        data.archivos = selectedFiles.map(file => file.name).join(', ');
+        
+        // Comentarios
+        data.comentarios = formData.get('comentarios') || '';
+        
+        // Timestamp
+        data.fecha_envio = new Date().toLocaleString('es-ES');
+        
+        // Guardar en localStorage
+        const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+        submissions.push(data);
+        localStorage.setItem('formSubmissions', JSON.stringify(submissions));
+        
+        // Generar y descargar CSV
+        generateAndDownloadCSV(submissions);
+        
+        // Mostrar éxito
+        showNotification('¡Formulario enviado exitosamente! Los datos se han guardado localmente.', 'success');
+        
+        // Resetear formulario
+        form.reset();
+        selectedFiles = [];
+        updateFileList();
+        
+        // Limpiar errores
+        document.querySelectorAll('.field-error').forEach(error => error.remove());
         
     } catch (error) {
         console.error('Error:', error);
-        showNotification('Error de conexión. Intenta nuevamente.', 'error');
+        showNotification('Error al procesar el formulario. Intenta nuevamente.', 'error');
     } finally {
         // Restaurar botón
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Enviar Formulario';
+        submitBtn.innerHTML = originalText;
     }
+}
+
+function generateAndDownloadCSV(submissions) {
+    if (submissions.length === 0) return;
+    
+    // Headers del CSV
+    const headers = [
+        'Fecha de Envío',
+        'Nombre Completo',
+        'Email',
+        'Teléfono',
+        'Fecha de Nacimiento',
+        'Género',
+        'Ciudad',
+        'Otra Ciudad',
+        'Días Disponibles',
+        'Turno Preferido',
+        'Movilidad para Trabajo',
+        'Puede Hacer Ride a Otros',
+        'Tiene Restricciones',
+        'Restricciones Detalle',
+        'Sabe Usar Computadora',
+        'Experiencia Maquinaria Industrial',
+        'Experiencia Limpieza',
+        'Pasa Examen de Lógica',
+        'Experiencia en Puestos Específicos',
+        'Trabajos Anteriores',
+        'Archivos',
+        'Comentarios Adicionales'
+    ];
+    
+    // Crear contenido CSV
+    let csvContent = headers.join(',') + '\n';
+    
+    submissions.forEach(submission => {
+        const row = [
+            submission.fecha_envio || '',
+            submission.nombre || '',
+            submission.email || '',
+            submission.telefono || '',
+            submission.fechaNacimiento || '',
+            submission.genero || '',
+            submission.ciudad || '',
+            submission.otraCiudad || '',
+            submission.dias_disponibles || '',
+            submission.turno_preferido || '',
+            submission.movilidad_trabajo || '',
+            submission.puede_ride_otros || '',
+            submission.tiene_restricciones || '',
+            submission.restricciones_detalle || '',
+            submission.sabe_computadora || '',
+            submission.experiencia_maquinaria || '',
+            submission.experiencia_limpieza || '',
+            submission.pasa_examen_logica || '',
+            submission.experiencia_puestos || '',
+            submission.trabajos_anteriores || '',
+            submission.archivos || '',
+            submission.comentarios || ''
+        ].map(field => `"${field.replace(/"/g, '""')}"`).join(',');
+        
+        csvContent += row + '\n';
+    });
+    
+    // Crear y descargar archivo
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', `formulario_respuestas_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 function showNotification(message, type) {
@@ -832,12 +954,97 @@ function showNotification(message, type) {
 // Función para obtener estadísticas (opcional)
 async function getStats() {
     try {
-        const response = await fetch('/stats');
-        const stats = await response.json();
-        console.log('Estadísticas:', stats);
+        const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+        console.log('Estadísticas:', {
+            total: submissions.length,
+            ultima_submision: submissions.length > 0 ? submissions[submissions.length - 1].fecha_envio : 'Ninguna',
+            submissions: submissions
+        });
+        return submissions;
     } catch (error) {
         console.error('Error al obtener estadísticas:', error);
+        return [];
     }
+}
+
+// Función para mostrar panel de administración
+function showAdminPanel() {
+    const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+    
+    let html = `
+        <div class="admin-panel">
+            <h3>Panel de Administración</h3>
+            <p><strong>Total de formularios enviados:</strong> ${submissions.length}</p>
+            <div class="admin-buttons">
+                <button onclick="downloadAllData()" class="btn-admin">
+                    <i class="fas fa-download"></i> Descargar Todos los Datos
+                </button>
+                <button onclick="clearAllData()" class="btn-admin btn-danger">
+                    <i class="fas fa-trash"></i> Borrar Todos los Datos
+                </button>
+                <button onclick="closeAdminPanel()" class="btn-admin">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+            <div class="recent-submissions">
+                <h4>Últimas 5 Submisiones:</h4>
+                ${submissions.slice(-5).reverse().map(sub => `
+                    <div class="submission-item">
+                        <strong>${sub.nombre}</strong> - ${sub.email}<br>
+                        <small>${sub.fecha_envio}</small>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+    
+    // Crear modal
+    const modal = document.createElement('div');
+    modal.className = 'admin-modal';
+    modal.innerHTML = html;
+    document.body.appendChild(modal);
+    
+    // Mostrar modal
+    setTimeout(() => modal.classList.add('show'), 10);
+}
+
+function closeAdminPanel() {
+    const modal = document.querySelector('.admin-modal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+    }
+}
+
+function downloadAllData() {
+    const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
+    if (submissions.length > 0) {
+        generateAndDownloadCSV(submissions);
+    } else {
+        showNotification('No hay datos para descargar', 'error');
+    }
+}
+
+function clearAllData() {
+    if (confirm('¿Estás seguro de que quieres borrar todos los datos? Esta acción no se puede deshacer.')) {
+        localStorage.removeItem('formSubmissions');
+        showNotification('Todos los datos han sido borrados', 'success');
+        closeAdminPanel();
+    }
+}
+
+// Agregar botón de administración al DOM
+function addAdminButton() {
+    // Verificar si ya existe
+    if (document.querySelector('.admin-button')) return;
+    
+    const adminBtn = document.createElement('button');
+    adminBtn.className = 'admin-button';
+    adminBtn.innerHTML = '<i class="fas fa-cog"></i>';
+    adminBtn.title = 'Panel de Administración';
+    adminBtn.onclick = showAdminPanel;
+    
+    document.body.appendChild(adminBtn);
 }
 
 function setupDatePicker() {
