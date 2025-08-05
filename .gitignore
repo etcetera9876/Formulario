@@ -14,11 +14,8 @@ yarn-error.log*
 # Credenciales de Google
 credentials.json
 key.json
-*.json
-!package.json
-!package-lock.json
 
-# Archivos de configuración
+# Archivos de configuración específicos
 config.js
 config.local.js
 config.json
