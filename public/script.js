@@ -10,19 +10,37 @@ function loadGoogleSheetsAPI() {
             return;
         }
         
+        // Verificar si estamos en un entorno seguro
+        const isSecureContext = window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        
+        if (!isSecureContext && window.location.protocol === 'file:') {
+            console.warn('Ejecutando en contexto file:// - algunas funcionalidades pueden estar limitadas');
+        }
+        
         const script = document.createElement('script');
         script.src = 'https://apis.google.com/js/api.js';
         script.onload = () => {
-            window.gapi.load('client', () => {
-                window.gapi.client.init({
-                    'apiKey': GOOGLE_API_KEY,
-                    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
-                }).then(() => {
-                    resolve(window.gapi);
-                }).catch(reject);
-            });
+            try {
+                window.gapi.load('client', () => {
+                    window.gapi.client.init({
+                        'apiKey': GOOGLE_API_KEY,
+                        'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+                    }).then(() => {
+                        resolve(window.gapi);
+                    }).catch((error) => {
+                        console.error('Error inicializando Google API:', error);
+                        reject(error);
+                    });
+                });
+            } catch (error) {
+                console.error('Error cargando Google API:', error);
+                reject(error);
+            }
         };
-        script.onerror = reject;
+        script.onerror = (error) => {
+            console.error('Error cargando script de Google API:', error);
+            reject(error);
+        };
         document.head.appendChild(script);
     });
 }
