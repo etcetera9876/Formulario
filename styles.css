@@ -1,0 +1,2067 @@
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    line-height: 1.6;
+    /* Optimizaciones para móvil */
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header del formulario */
+.form-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.form-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 3s infinite;
+}
+
+.form-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    animation: titleSlideIn 1.2s ease-out, titleGlow 2s ease-in-out 1.2s infinite alternate;
+    position: relative;
+    z-index: 2;
+}
+
+.form-header h1 i {
+    animation: iconBounce 2s ease-in-out infinite;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.form-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    animation: subtitleFadeIn 1.5s ease-out 0.5s both;
+    position: relative;
+    z-index: 2;
+}
+
+/* Partículas de fondo */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(2) {
+    top: 60%;
+    left: 80%;
+    animation-delay: 1s;
+    animation-duration: 7s;
+}
+
+.particle:nth-child(3) {
+    top: 40%;
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 9s;
+}
+
+.particle:nth-child(4) {
+    top: 80%;
+    left: 70%;
+    animation-delay: 3s;
+    animation-duration: 6s;
+}
+
+.particle:nth-child(5) {
+    top: 30%;
+    left: 90%;
+    animation-delay: 4s;
+    animation-duration: 8s;
+}
+
+.particle:nth-child(6) {
+    top: 70%;
+    left: 30%;
+    animation-delay: 5s;
+    animation-duration: 7s;
+}
+
+/* Estilos para el logo de la empresa */
+.company-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: logoSlideIn 1s ease-out 0.3s both;
+}
+
+.logo-graphic {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-image {
+    width: 80px;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2));
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5)) drop-shadow(0 3px 12px rgba(255, 255, 255, 0.3));
+}
+
+.logo-text {
+    text-align: left;
+}
+
+.company-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.company-subtitle {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+    margin-top: 5px;
+}
+
+.services {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tagline {
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-style: italic;
+    color: #ffd700;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes logoSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contenedor del formulario */
+.form-container {
+    padding: 40px;
+}
+
+/* Secciones del formulario */
+.form-section {
+    margin-bottom: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 
+        0 10px 30px rgba(102, 126, 234, 0.1),
+        0 4px 10px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+    border-radius: 20px 20px 0 0;
+}
+
+.form-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.02) 0%, transparent 50%, rgba(118, 75, 162, 0.02) 100%);
+    pointer-events: none;
+    border-radius: 20px;
+}
+
+.form-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 15px 40px rgba(102, 126, 234, 0.15),
+        0 8px 20px rgba(0, 0, 0, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.form-section h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-section h2 i {
+    color: #667eea;
+}
+
+/* Grupos de formulario */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+/* Label con botón */
+.label-with-button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.label-with-button label {
+    margin: 0;
+    flex: 1;
+}
+
+.label-with-button .btn-ejemplo {
+    flex-shrink: 0;
+    width: auto;
+    min-width: 100px;
+}
+
+/* Input con botón (mantener para compatibilidad) */
+.input-with-button {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-with-button input {
+    width: 100%;
+}
+
+.input-with-button .btn-ejemplo {
+    align-self: flex-start;
+    width: auto;
+    min-width: 120px;
+}
+
+.btn-ejemplo {
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.btn-ejemplo:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Mejoras para interacción táctil */
+.btn-ejemplo:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+/* Optimización para touch en móviles */
+@media (max-width: 768px) {
+    .btn-ejemplo:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    .btn-ejemplo:active {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        transform: scale(0.98);
+    }
+}
+
+.btn-ejemplo i {
+    font-size: 0.75rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Estilos para campos con error */
+input.error,
+select.error,
+textarea.error {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* Estilos para sugerencias de email */
+.email-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 2px;
+}
+
+.email-suggestion {
+    padding: 8px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+    font-size: 0.9rem;
+}
+
+.email-suggestion:hover {
+    background-color: #f8f9fa;
+}
+
+.email-suggestion:last-child {
+    border-bottom: none;
+}
+
+/* Estilos para advertencia de teléfono */
+.phone-warning {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 4px;
+    border-left: 3px solid #667eea;
+}
+
+.phone-warning i {
+    color: #667eea;
+    font-size: 0.9rem;
+}
+
+/* Date Picker Styles */
+.date-picker-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.date-picker-container input {
+    flex: 1;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border: 2px solid #e1e5e9;
+    transition: all 0.3s ease;
+}
+
+.date-picker-container input:hover {
+    border-color: #667eea;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+}
+
+.date-picker-container input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.date-picker-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+}
+
+.date-picker-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.date-picker-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.date-picker-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    overflow: hidden;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.date-picker-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.date-picker-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.date-nav-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.date-nav-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.date-picker-body {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.year-selector, .month-selector, .day-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.year-item, .month-item, .day-item {
+    padding: 12px 8px;
+    text-align: center;
+    border: 2px solid #e1e5e9;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.year-item:hover, .month-item:hover, .day-item:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.year-item.selected, .month-item.selected, .day-item.selected {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: #667eea;
+}
+
+.date-picker-footer {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    border-top: 1px solid #e1e5e9;
+}
+
+.date-picker-footer .btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.date-picker-footer .btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.date-picker-footer .btn-secondary:hover {
+    background: #e9ecef;
+}
+
+.date-picker-footer .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.date-picker-footer .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+/* Animación para mensajes de error */
+.field-error {
+    animation: errorSlideIn 0.3s ease-out;
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Asegurar que el mensaje de error aparezca debajo del input-with-button */
+.form-group .field-error {
+    order: 3;
+    width: 100%;
+}
+
+@keyframes errorSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Checkboxes personalizados */
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.checkbox-item:hover {
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+.checkbox-item input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.checkbox-item input[type="checkbox"]:checked + .checkmark {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.checkbox-item input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Subida de archivos */
+.file-upload-container {
+    position: relative;
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.file-upload-container:hover {
+    border-color: #667eea;
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+.file-upload-container input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-upload-text {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+.file-upload-text i {
+    font-size: 2rem;
+    color: #667eea;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.file-list {
+    margin-top: 15px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f1f3f4;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.file-item .file-name {
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.file-item .file-size {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+/* Botones */
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-secondary {
+    background: #f8f9fa;
+    color: #333;
+    border: 2px solid #e1e5e9;
+}
+
+.btn-secondary:hover {
+    background: #e9ecef;
+    border-color: #667eea;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #666;
+}
+
+.close:hover {
+    color: #333;
+}
+
+/* Notificaciones */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    background: #28a745;
+}
+
+.notification.error {
+    background: #dc3545;
+}
+
+.notification.warning {
+    background: #ffc107;
+    color: #212529;
+}
+
+/* Responsive - Móvil First */
+@media (max-width: 768px) {
+    body {
+        padding: 5px;
+        font-size: 16px; /* Previene zoom en iOS */
+    }
+    
+    .container {
+        border-radius: 15px;
+        margin: 5px auto;
+        max-width: 100%;
+    }
+    
+    .form-header {
+        padding: 25px 15px;
+    }
+    
+    .form-header h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+    }
+    
+    .form-header p {
+        font-size: 1rem;
+        line-height: 1.4;
+    }
+    
+    .form-container {
+        padding: 15px;
+    }
+    
+    .form-section {
+        padding: 15px;
+        margin-bottom: 20px;
+        border-radius: 15px;
+        box-shadow: 
+            0 6px 20px rgba(102, 126, 234, 0.08),
+            0 3px 8px rgba(0, 0, 0, 0.04),
+            inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    }
+    
+    .form-section::before {
+        height: 3px;
+        border-radius: 15px 15px 0 0;
+    }
+    
+    .form-section:hover {
+        transform: translateY(-1px);
+        box-shadow: 
+            0 8px 25px rgba(102, 126, 234, 0.12),
+            0 4px 12px rgba(0, 0, 0, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+    
+    .form-section h2 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    /* Inputs optimizados para móvil */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    input[type="date"],
+    select,
+    textarea {
+        padding: 15px 12px;
+        font-size: 16px; /* Previene zoom en iOS */
+        border-radius: 8px;
+        min-height: 48px; /* Tamaño mínimo para touch */
+    }
+    
+    /* Botones optimizados para móvil */
+    .btn-ejemplo {
+        padding: 8px 20px;
+        font-size: 14px;
+        min-height: 36px;
+        border-radius: 8px;
+        width: auto;
+        min-width: 120px;
+    }
+    
+    .label-with-button {
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+    
+    .label-with-button .btn-ejemplo {
+        min-width: 80px;
+        padding: 6px 12px;
+        font-size: 12px;
+        min-height: 32px;
+    }
+    
+    .input-with-button {
+        gap: 6px;
+    }
+    
+    .input-with-button input {
+        width: 100%;
+    }
+    
+    /* Checkboxes optimizados */
+    .checkbox-group {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .checkbox-item {
+        padding: 12px;
+        min-height: 44px;
+    }
+    
+    .checkmark {
+        width: 22px;
+        height: 22px;
+    }
+    
+    /* Subida de archivos optimizada */
+    .file-upload-container {
+        padding: 30px 20px;
+        min-height: 120px;
+    }
+    
+    .file-upload-text {
+        font-size: 1rem;
+    }
+    
+    .file-upload-text i {
+        font-size: 1.8rem;
+    }
+    
+    /* Botones de acción */
+    .form-actions {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 30px;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 16px 20px;
+        font-size: 16px;
+        min-height: 52px;
+        border-radius: 10px;
+    }
+    
+    /* Modal optimizado para móvil */
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+        max-height: 85vh;
+        padding: 20px;
+        border-radius: 12px;
+    }
+    
+    .ejemplo-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .id-image {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+    
+    /* Mensajes de error optimizados */
+    .field-error {
+        font-size: 14px;
+        padding: 10px 12px;
+        margin-top: 8px;
+    }
+    
+    /* Sugerencias de email en móvil */
+    .email-suggestions {
+        max-height: 150px;
+        font-size: 0.85rem;
+    }
+    
+    .email-suggestion {
+        padding: 10px 12px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Advertencia de teléfono en móvil */
+    .phone-warning {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+        margin-top: 6px;
+    }
+    
+    /* Date Picker en móvil */
+    .date-picker-content {
+        width: 95%;
+        max-width: 350px;
+        max-height: 85vh;
+    }
+    
+    .date-picker-header {
+        padding: 15px;
+    }
+    
+    .date-picker-title {
+        font-size: 1.1rem;
+    }
+    
+    .date-nav-btn {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .date-picker-body {
+        padding: 15px;
+        max-height: 350px;
+    }
+    
+    .year-selector, .month-selector, .day-selector {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    .year-item, .month-item, .day-item {
+        padding: 10px 6px;
+        font-size: 0.9rem;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .date-picker-footer {
+        padding: 15px;
+    }
+    
+    .date-picker-footer .btn {
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+}
+
+/* Tablet */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        max-width: 90%;
+    }
+    
+    .form-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Desktop */
+@media (min-width: 1025px) {
+    .container {
+        max-width: 800px;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.form-section {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Estados de carga */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Animaciones del título */
+@keyframes titleSlideIn {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+}
+
+@keyframes iconBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes subtitleFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 0.9;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Efecto hover adicional para el título */
+.form-header h1:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+.form-header h1:hover i {
+    animation: iconSpin 0.6s ease-in-out;
+}
+
+@keyframes iconSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.6;
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-10px) translateX(-5px);
+        opacity: 0.8;
+    }
+    75% {
+        transform: translateY(-15px) translateX(15px);
+        opacity: 0.9;
+    }
+}
+
+/* Modal de Ejemplo */
+.ejemplo-modal {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.ejemplo-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.id-example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.id-image {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.id-placeholder {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+}
+
+.id-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+}
+
+.id-field {
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    border-left: 4px solid white;
+}
+
+.field-label {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-bottom: 2px;
+}
+
+.field-value {
+    display: block;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.ejemplo-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ejemplo-instructions h3 {
+    color: #667eea;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ejemplo-instructions ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ejemplo-instructions li {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ejemplo-instructions li:before {
+    content: '✓';
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.ejemplo-note {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: 1px solid #ffc107;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.ejemplo-note i {
+    color: #ffc107;
+    font-size: 1.2rem;
+    margin-top: 2px;
+}
+
+/* Responsive para el modal de ejemplo */
+@media (max-width: 768px) {
+    .ejemplo-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .id-image {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .ejemplo-modal {
+        margin: 10% auto;
+        width: 95%;
+    }
+}
+
+/* Estilos para el modal de email */
+.email-visual {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 25px;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.email-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.email-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.email-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 12px 15px;
+    border-radius: 8px;
+    border-left: 4px solid white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.email-label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.email-value {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+/* Estilos mejorados para select */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
+}
+
+select option {
+    padding: 8px 12px;
+}
+
+/* Estilos para el modal de ciudad */
+.ciudad-example {
+    margin-bottom: 20px;
+}
+
+.ciudad-visual {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #e1e5e9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ciudad-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #667eea;
+    color: #667eea;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.ciudad-examples {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ciudad-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    transition: all 0.3s ease;
+}
+
+.ciudad-item.correct {
+    background: rgba(40, 167, 69, 0.1);
+    border-left-color: #28a745;
+}
+
+.ciudad-item.incorrect {
+    background: rgba(220, 53, 69, 0.1);
+    border-left-color: #dc3545;
+}
+
+.ciudad-label {
+    font-weight: 600;
+    min-width: 100px;
+}
+
+.ciudad-value {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.ciudad-note {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-left: auto;
+}
+
+/* Responsive para el modal de ciudad */
+@media (max-width: 768px) {
+    .ciudad-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .ciudad-label {
+        min-width: auto;
+    }
+    
+    .ciudad-note {
+        margin-left: 0;
+        margin-top: 4px;
+    }
+}
+
+/* Estilos para la sección de disponibilidad de trabajo */
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-grid .checkbox-item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.checkbox-grid .checkbox-item:hover {
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+.checkbox-grid .checkbox-item input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-grid .checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.checkbox-grid .checkbox-item input[type="checkbox"]:checked + .checkmark {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.checkbox-grid .checkbox-item input[type="checkbox"]:checked + .checkmark::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.checkbox-grid .checkbox-content {
+    flex: 1;
+}
+
+.checkbox-grid .checkbox-content strong {
+    display: block;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.3;
+}
+
+/* Estilos para la caja de información */
+.info-box {
+    background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+    border: 1px solid #bbdefb;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
+}
+
+.info-box i {
+    color: #1976d2;
+    font-size: 24px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.info-content strong {
+    color: #1565c0;
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.info-content p {
+    color: #424242;
+    margin: 0;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.info-content strong {
+    color: #d32f2f;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.radio-item:hover {
+    background: #e9ecef;
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+}
+
+.radio-item input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radiomark {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.radio-item input[type="radio"]:checked ~ .radiomark {
+    background-color: #007bff;
+}
+
+.radio-item input[type="radio"]:checked ~ .radiomark:after {
+    content: "";
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.radio-content {
+    flex: 1;
+}
+
+.radio-content strong {
+    display: block;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.radio-content small {
+    color: #666;
+    font-size: 14px;
+}
+
+.legal-disclaimer {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border: 2px solid #ffc107;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.1);
+}
+
+.disclaimer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #856404;
+    font-size: 1.1rem;
+}
+
+.disclaimer-header i {
+    font-size: 1.2rem;
+}
+
+.disclaimer-content {
+    color: #856404;
+    line-height: 1.6;
+}
+
+.disclaimer-content p {
+    margin: 10px 0;
+    font-size: 0.95rem;
+}
+
+/* Estilos para checkboxes de verificaciones */
+.checkbox-content {
+    margin-left: 15px;
+    flex: 1;
+}
+
+.checkbox-content strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 1rem;
+}
+
+.checkbox-content small {
+    color: #666;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    display: block;
+}
+
+/* Responsive para verificaciones */
+@media (max-width: 768px) {
+    .legal-disclaimer {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .disclaimer-header {
+        font-size: 1rem;
+    }
+    
+    .disclaimer-content p {
+        font-size: 0.9rem;
+    }
+    
+    .checkbox-content {
+        margin-left: 10px;
+    }
+    
+    .checkbox-content strong {
+        font-size: 0.95rem;
+    }
+    
+    .checkbox-content small {
+        font-size: 0.8rem;
+    }
+    
+    .checkbox-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 10px;
+    }
+    
+    .checkbox-grid .checkbox-item {
+        padding: 8px;
+    }
+    
+    .checkbox-grid .checkbox-content strong {
+        font-size: 13px;
+    }
+    
+    .company-logo {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .logo-graphic {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .logo-image {
+        width: 60px;
+        max-height: 60px;
+    }
+    
+    .company-name {
+        font-size: 1.5rem;
+    }
+    
+    .company-subtitle {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .services {
+        font-size: 0.8rem;
+    }
+    
+    .tagline {
+        font-size: 0.7rem;
+    }
+}
+
+/* Panel de Administración */
+.admin-button {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.admin-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.admin-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.admin-modal.show {
+    opacity: 1;
+}
+
+.admin-panel {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.admin-modal.show .admin-panel {
+    transform: scale(1);
+}
+
+.admin-panel h3 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+.admin-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-admin {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-admin:first-child {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.btn-admin.btn-danger {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+}
+
+.btn-admin:last-child {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.btn-admin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.recent-submissions {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.recent-submissions h4 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.submission-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 6px;
+    border-left: 4px solid #667eea;
+}
+
+.submission-item strong {
+    color: #333;
+}
+
+.submission-item small {
+    color: #666;
+    font-size: 12px;
+}
+
+/* Responsive para panel de administración */
+@media (max-width: 768px) {
+    .admin-button {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+    
+    .admin-panel {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    .admin-buttons {
+        flex-direction: column;
+    }
+    
+    .btn-admin {
+        width: 100%;
+        justify-content: center;
+    }
+}

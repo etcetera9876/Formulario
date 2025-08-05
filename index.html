@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Formulario Personalizado</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="config.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header class="form-header">
+            <div class="particles">
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                <div class="particle"></div>
+                              <div class="particle"></div>
+          </div>
+          
+          <!-- Logo JobConnection Services -->
+          <div class="company-logo">
+              <div class="logo-graphic">
+                  <img src="uploads/logo-corto.png" alt="JobConnection Services, Inc." class="logo-image">
+              </div>
+              <div class="logo-text">
+                  <div class="company-name">Job Connection</div>
+                  <div class="company-subtitle">
+                      <span class="services">Services, Inc.</span>
+                      <span class="tagline">Working<br>For You</span>
+                  </div>
+              </div>
+          </div>
+          
+          <h1><i class="fas fa-clipboard-list"></i> Pre-Aplicación</h1>
+            <p>Completa el formulario y tus respuestas se guardarán automáticamente en nuestra base de datos para que puedas ser contactado por nuestros agentes de reclutamiento.</p>
+        </header>
+
+        <form id="customForm" class="form-container" enctype="multipart/form-data">
+            <!-- Información Personal -->
+            <div class="form-section">
+                <h2><i class="fas fa-user"></i> Información Personal</h2>
+                
+                <div class="form-group">
+                    <div class="label-with-button">
+                        <label for="nombre">Nombre Completo *</label>
+                        <button type="button" id="ejemploBtn" class="btn-ejemplo">
+                            <i class="fas fa-question-circle"></i> Ejemplo
+                        </button>
+                    </div>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono *</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                        <div class="date-picker-container">
+                            <input type="text" id="fechaNacimiento" name="fechaNacimiento" readonly placeholder="Selecciona tu fecha de nacimiento">
+                        </div>
+                        <div id="datePickerModal" class="date-picker-modal">
+                            <div class="date-picker-content">
+                                <div class="date-picker-header">
+                                    <button type="button" id="prevYear" class="date-nav-btn">
+                                        <i class="fas fa-chevron-left"></i>
+                                    </button>
+                                    <span id="currentYear" class="date-picker-title">2024</span>
+                                    <button type="button" id="nextYear" class="date-nav-btn">
+                                        <i class="fas fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="date-picker-body">
+                                    <div id="yearSelector" class="year-selector"></div>
+                                    <div id="monthSelector" class="month-selector" style="display: none;"></div>
+                                    <div id="daySelector" class="day-selector" style="display: none;"></div>
+                                </div>
+                                <div class="date-picker-footer">
+                                    <button type="button" id="cancelDate" class="btn-secondary">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ciudad">¿En qué ciudad vives? *</label>
+                        <select id="ciudad" name="ciudad" required>
+                            <option value="">Selecciona tu ciudad</option>
+                            <option value="Union City">Union City, NJ</option>
+                            <option value="North Bergen">North Bergen, NJ</option>
+                            <option value="Secaucus">Secaucus, NJ</option>
+                            <option value="Jersey City">Jersey City, NJ</option>
+                            <option value="Hoboken">Hoboken, NJ</option>
+                            <option value="Bayonne">Bayonne, NJ</option>
+                            <option value="West New York">West New York, NJ</option>
+                            <option value="Weehawken">Weehawken, NJ</option>
+                            <option value="Guttenberg">Guttenberg, NJ</option>
+                            <option value="Kearny">Kearny, NJ</option>
+                            <option value="Harrison">Harrison, NJ</option>
+                            <option value="Newark">Newark, NJ</option>
+                            <option value="Elizabeth">Elizabeth, NJ</option>
+                            <option value="Paterson">Paterson, NJ</option>
+                            <option value="Clifton">Clifton, NJ</option>
+                            <option value="Passaic">Passaic, NJ</option>
+                            <option value="Hackensack">Hackensack, NJ</option>
+                            <option value="Paramus">Paramus, NJ</option>
+                            <option value="Ridgewood">Ridgewood, NJ</option>
+                            <option value="Teaneck">Teaneck, NJ</option>
+                            <option value="Fort Lee">Fort Lee, NJ</option>
+                            <option value="Englewood">Englewood, NJ</option>
+                            <option value="Bergenfield">Bergenfield, NJ</option>
+                            <option value="Dumont">Dumont, NJ</option>
+                            <option value="New Milford">New Milford, NJ</option>
+                            <option value="River Edge">River Edge, NJ</option>
+                            <option value="Oradell">Oradell, NJ</option>
+                            <option value="Emerson">Emerson, NJ</option>
+                            <option value="Westwood">Westwood, NJ</option>
+                            <option value="Hillsdale">Hillsdale, NJ</option>
+                            <option value="Park Ridge">Park Ridge, NJ</option>
+                            <option value="Woodcliff Lake">Woodcliff Lake, NJ</option>
+                            <option value="Montvale">Montvale, NJ</option>
+                            <option value="Old Tappan">Old Tappan, NJ</option>
+                            <option value="Norwood">Norwood, NJ</option>
+                            <option value="Northvale">Northvale, NJ</option>
+                            <option value="Harrington Park">Harrington Park, NJ</option>
+                            <option value="Closter">Closter, NJ</option>
+                            <option value="Alpine">Alpine, NJ</option>
+                            <option value="Tenafly">Tenafly, NJ</option>
+                            <option value="Cresskill">Cresskill, NJ</option>
+                            <option value="Demarest">Demarest, NJ</option>
+                            <option value="Haworth">Haworth, NJ</option>
+                            <option value="Otra">Otra ciudad (especificar)</option>
+                        </select>
+                        <div id="otraCiudadContainer" class="form-group" style="display: none;">
+                            <label for="otraCiudad">Especifica tu ciudad:</label>
+                            <input type="text" id="otraCiudad" name="otraCiudad" placeholder="Escribe el nombre de tu ciudad">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="genero">Género</label>
+                        <select id="genero" name="genero">
+                            <option value="">Selecciona una opción</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="otro">Otro</option>                    
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Disponibilidad de Trabajo -->
+            <div class="form-section">
+                <h2><i class="fas fa-calendar-alt"></i> Disponibilidad de Trabajo</h2>
+                
+
+                
+                <div class="form-group">
+                    <label class="form-label">Días de la semana disponibles:</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="lunes">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Lunes</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="martes">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Martes</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="miercoles">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Miércoles</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="jueves">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Jueves</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="viernes">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Viernes</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="sabado">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Sábado</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="dias_disponibles" value="domingo">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Domingo</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Turnos preferidos:</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="turno_preferido" value="manana" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Mañana</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="turno_preferido" value="tarde" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Tarde</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="turno_preferido" value="noche" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Noche</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="turno_preferido" value="flexible" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Flexible</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Tienes movilidad para ir a trabajar?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="movilidad_trabajo" value="carro_propio" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Tengo carro propio</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="movilidad_trabajo" value="familiar_ride" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Tengo un familiar que me hace ride</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="movilidad_trabajo" value="no_carro" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No tengo carro</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="movilidad_trabajo" value="bus_uber" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Voy en bus/Uber</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="ride_otros_container" style="display: none;">
+                    <label class="form-label">¿Puede hacer ride a otras personas a la misma compañía donde iría a trabajar?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="puede_ride_otros" value="si">
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Sí</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="puede_ride_otros" value="no">
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Tiene alguna restricción en su disponibilidad para trabajar?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="tiene_restricciones" value="si" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Sí</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="tiene_restricciones" value="no" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="restricciones_container" style="display: none;">
+                    <label for="restricciones_detalle" class="form-label">¿Qué restricciones tienes?</label>
+                    <textarea id="restricciones_detalle" name="restricciones_detalle" rows="3" placeholder="Describe tus restricciones de disponibilidad..."></textarea>
+                </div>
+
+            </div>
+
+            <!-- Habilidades y Experiencia -->
+            <div class="form-section">
+                <h2><i class="fas fa-tools"></i> Habilidades y Experiencia</h2>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Sabes usar la computadora?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="sabe_computadora" value="si" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Sí</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="sabe_computadora" value="no" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Tienes experiencia operando maquinaria industrial?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="experiencia_maquinaria" value="si" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Sí</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="experiencia_maquinaria" value="no" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Tienes experiencia limpiando?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="experiencia_limpieza" value="si" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Sí</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="experiencia_limpieza" value="no" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Pasas un examen de lógica, razonamiento y matemáticas?</label>
+                    <div class="radio-group">
+                        <label class="radio-item">
+                            <input type="radio" name="pasa_examen_logica" value="si" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Sí</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="pasa_examen_logica" value="tal_vez" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>Tal vez</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="radio-item">
+                            <input type="radio" name="pasa_examen_logica" value="no" required>
+                            <span class="radiomark"></span>
+                            <div class="radio-content">
+                                <strong>No</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿En qué has trabajado anteriormente?</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="recogedor">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Recogedor</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="empacador">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Empacador</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="carga">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Carga</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="descarga">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Descarga</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="almacenero">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Almacenero</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="ensamblador">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Ensamblador</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="empaquetador">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Empaquetador</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="limpieza">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Limpieza</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="jardineria">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Jardinería</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="recepcionista">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Recepcionista</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="receiving">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Recepción de Mercancía</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="shipping">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Envío de Mercancía</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="sorting">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Clasificación</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="picker">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Recolector</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="servicio_cliente">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Servicio al Cliente</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="trabajos_anteriores" value="vendedor">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Vendedor</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Experiencia en Puestos Específicos -->
+            <div class="form-section">
+                <h2><i class="fas fa-briefcase"></i> Experiencia en Puestos Específicos</h2>
+                
+                <div class="form-group">
+                    <div class="info-box">
+                        <i class="fas fa-info-circle"></i>
+                        <div class="info-content">
+                            <strong>¿Cuándo debo llenar esta sección?</strong>
+                            <p>Esta sección es <strong>OPCIONAL</strong> y solo debes completarla si tienes experiencia en alguno de los puestos listados. Si no tienes experiencia en estos puestos específicos, puedes saltar esta sección.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Tienes experiencia en alguno de estos puestos?</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="experiencia_puestos" value="auxiliar_administrativo">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Auxiliar Administrativo</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="experiencia_puestos" value="conductor_elevadoras">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Conductor de Máquinas Elevadoras</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="experiencia_puestos" value="operario_maquinas">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Operario de Máquinas Industriales</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="experiencia_puestos" value="ejecutivo_cuentas">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Ejecutivo de Cuentas</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="experiencia_puestos" value="inventory_control">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>Inventory Control</strong>
+                            </div>
+                        </label>
+                        
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="experiencia_puestos" value="it_support">
+                            <span class="checkmark"></span>
+                            <div class="checkbox-content">
+                                <strong>IT Support</strong>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Subir Currículum -->
+            <div class="form-section">
+                <h2><i class="fas fa-file-alt"></i> Subir Currículum</h2>
+                
+                <div class="form-group">
+                    <label for="files">Si tienes tu currículum, ¿podrías subirlo para su revisión?</label>
+                    <div class="file-upload-container">
+                        <input type="file" id="files" name="files" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.txt">
+                        <div class="file-upload-text">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Arrastra tu currículum aquí o haz clic para seleccionar</span>
+                        </div>
+                    </div>
+                    <div id="fileList" class="file-list"></div>
+                </div>
+            </div>
+
+            <!-- Comentarios Adicionales -->
+            <div class="form-section">
+                <h2><i class="fas fa-comment"></i> Comentarios Adicionales</h2>
+                
+                <div class="form-group">
+                    <label for="comentarios">¿Cómo fue tu experiencia con este proceso de pre-aplicación?</label>
+                    <textarea id="comentarios" name="comentarios" rows="4" placeholder="Comparte tu experiencia, sugerencias o cualquier comentario adicional que consideres importante..."></textarea>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="form-actions">
+                <button type="button" id="previewBtn" class="btn btn-secondary">
+                    <i class="fas fa-eye"></i> Vista Previa
+                </button>
+                <button type="submit" id="submitBtn" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Enviar Formulario
+                </button>
+            </div>
+        </form>
+
+        <!-- Modal de Vista Previa -->
+        <div id="previewModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Vista Previa del Formulario</h2>
+                <div id="previewContent"></div>
+            </div>
+        </div>
+
+        <!-- Modal de Ejemplo de ID -->
+        <div id="ejemploModal" class="modal">
+            <div class="modal-content ejemplo-modal">
+                <span class="close" id="closeEjemplo">&times;</span>
+                <h2><i class="fas fa-id-card"></i> Ejemplo de Identificación</h2>
+                <div class="ejemplo-content">
+                    <div class="id-example">
+                        <div class="id-image">
+                            <img src="https://via.placeholder.com/400x250/4A90E2/FFFFFF?text=ID+Ejemplo" alt="Ejemplo de ID" class="id-placeholder">
+                            <div class="id-overlay">
+                                <div class="id-field nombre-field">
+                                    <span class="field-label">NOMBRE:</span>
+                                    <span class="field-value">JUAN CARLOS</span>
+                                </div>
+                                <div class="id-field apellido-field">
+                                    <span class="field-label">APELLIDOS:</span>
+                                    <span class="field-value">GARCÍA LÓPEZ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ejemplo-instructions">
+                        <h3><i class="fas fa-info-circle"></i> Cómo llenar el nombre completo:</h3>
+                        <ul>
+                            <li><strong>Nombre:</strong> Como aparece en tu documento de identidad</li>
+                            <li><strong>Apellidos:</strong> Apellido paterno y materno</li>
+                            <li><strong>Ejemplo:</strong> "Juan Carlos García López"</li>
+                        </ul>
+                        <div class="ejemplo-note">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Consejo:</strong> Escribe tu nombre exactamente como aparece en tu documento oficial de identidad.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+        <!-- Notificaciones -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
