@@ -20,6 +20,7 @@ key.json
 
 # Archivos de configuración
 config.js
+config.local.js
 config.json
 api-keys.js
 secrets.js

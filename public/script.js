@@ -943,22 +943,13 @@ async function handleFormSubmit(e) {
         
         // Intentar enviar a Google Sheets
         let googleSheetsSuccess = false;
-        
-        // Verificar si estamos en un contexto seguro (http/https)
-        const isSecureContext = window.location.protocol === 'http:' || window.location.protocol === 'https:';
-        
-        if (isSecureContext) {
-            try {
-                await sendToGoogleSheets(data);
-                googleSheetsSuccess = true;
-                showNotification('¡Formulario enviado exitosamente a Google Sheets!', 'success');
-            } catch (googleError) {
-                console.error('Error enviando a Google Sheets:', googleError);
-                showNotification('Google Sheets temporalmente no disponible. Guardando localmente...', 'warning');
-            }
-        } else {
-            console.log('Ejecutando en contexto file:// - usando solo localStorage');
-            showNotification('Modo offline: datos guardados localmente', 'info');
+        try {
+            await sendToGoogleSheets(data);
+            googleSheetsSuccess = true;
+            showNotification('¡Formulario enviado exitosamente a Google Sheets!', 'success');
+        } catch (googleError) {
+            console.error('Error enviando a Google Sheets:', googleError);
+            showNotification('Google Sheets temporalmente no disponible. Guardando localmente...', 'warning');
         }
         
         // Guardar en localStorage como respaldo

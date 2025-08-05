@@ -1,6 +1,6 @@
 // Configuración de Google Sheets (desde archivo externo config.js)
-const GOOGLE_SHEET_ID = window.CONFIG ? window.CONFIG.GOOGLE_SHEET_ID : '1mBN9A0nxgza0im64VTXVyqwYVQ9mpXyKWBCVZvcUN7U';
-const GOOGLE_API_KEY = window.CONFIG ? window.CONFIG.GOOGLE_API_KEY : 'AIzaSyBwXKzXKzXKzXKzXKzXKzXKzXKzXKzXKzXK';
+const GOOGLE_SHEET_ID = window.CONFIG ? window.CONFIG.GOOGLE_SHEET_ID : 'TU_SHEET_ID_REAL_AQUI';
+const GOOGLE_API_KEY = window.CONFIG ? window.CONFIG.GOOGLE_API_KEY : 'TU_API_KEY_REAL_AQUI';
 
 // Función para cargar Google Sheets API
 function loadGoogleSheetsAPI() {
