@@ -2,8 +2,8 @@
 // ⚠️ IMPORTANTE: Reemplazar con tus credenciales reales
 
 const CONFIG = {
-    GOOGLE_API_KEY: 'TU_API_KEY_AQUI',
-    GOOGLE_SHEET_ID: 'TU_SHEET_ID_AQUI'
+    GOOGLE_API_KEY: 'TU_API_KEY_REAL_AQUI',
+    GOOGLE_SHEET_ID: 'TU_SHEET_ID_REAL_AQUI'
 };
 
 // Exportar configuración

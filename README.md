@@ -31,8 +31,9 @@ Formulario web moderno y responsive para recopilar información de candidatos. F
 
 ### **1. Configuración Local:**
 ```bash
-# Copiar archivo de configuración
-cp config.local.js config.js
+# Copiar archivo de ejemplo y configurar
+cp config.example.js config.js
+# Editar config.js con tus credenciales reales
 ```
 
 ### **2. Configuración de Google Sheets:**
