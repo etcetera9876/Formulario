@@ -885,6 +885,11 @@ textarea.error {
     background: #dc3545;
 }
 
+.notification.warning {
+    background: #ffc107;
+    color: #212529;
+}
+
 /* Responsive - Móvil First */
 @media (max-width: 768px) {
     body {

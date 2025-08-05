@@ -1,3 +1,84 @@
+// Configuración de Google Sheets
+const GOOGLE_SHEET_ID = '1mBN9A0nxgza0im64VTXVyqwYVQ9mpXyKWBCVZvcUN7U';
+const GOOGLE_API_KEY = 'AIzaSyBwXKzXKzXKzXKzXKzXKzXKzXKzXKzXKzXK'; // Necesitarás obtener una API key real
+
+// Función para cargar Google Sheets API
+function loadGoogleSheetsAPI() {
+    return new Promise((resolve, reject) => {
+        if (window.gapi) {
+            resolve(window.gapi);
+            return;
+        }
+        
+        const script = document.createElement('script');
+        script.src = 'https://apis.google.com/js/api.js';
+        script.onload = () => {
+            window.gapi.load('client', () => {
+                window.gapi.client.init({
+                    'apiKey': GOOGLE_API_KEY,
+                    'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+                }).then(() => {
+                    resolve(window.gapi);
+                }).catch(reject);
+            });
+        };
+        script.onerror = reject;
+        document.head.appendChild(script);
+    });
+}
+
+// Función para enviar datos a Google Sheets
+async function sendToGoogleSheets(data) {
+    try {
+        // Cargar la API de Google Sheets
+        await loadGoogleSheetsAPI();
+        
+        // Preparar los datos para Google Sheets
+        const rowData = [
+            data.fecha_envio,
+            data.nombre,
+            data.email,
+            data.telefono,
+            data.fechaNacimiento,
+            data.genero,
+            data.ciudad,
+            data.otraCiudad,
+            data.dias_disponibles,
+            data.turno_preferido,
+            data.movilidad_trabajo,
+            data.puede_ride_otros,
+            data.tiene_restricciones,
+            data.restricciones_detalle,
+            data.sabe_computadora,
+            data.experiencia_maquinaria,
+            data.experiencia_limpieza,
+            data.pasa_examen_logica,
+            data.experiencia_puestos,
+            data.trabajos_anteriores,
+            data.archivos,
+            data.comentarios
+        ];
+        
+        // Enviar datos a Google Sheets
+        const response = await window.gapi.client.sheets.spreadsheets.values.append({
+            spreadsheetId: GOOGLE_SHEET_ID,
+            range: 'A:V', // Rango para todas las columnas
+            valueInputOption: 'RAW',
+            insertDataOption: 'INSERT_ROWS',
+            resource: {
+                values: [rowData]
+            }
+        });
+        
+        console.log('Datos enviados a Google Sheets:', response);
+        return response;
+        
+    } catch (error) {
+        console.error('Error enviando a Google Sheets:', error);
+        throw error;
+    }
+}
+
 // Elementos del DOM
 const form = document.getElementById('customForm');
 const previewBtn = document.getElementById('previewBtn');
@@ -839,7 +920,18 @@ async function handleFormSubmit(e) {
         // Timestamp
         data.fecha_envio = new Date().toLocaleString('es-ES');
         
-        // Guardar en localStorage
+        // Intentar enviar a Google Sheets
+        let googleSheetsSuccess = false;
+        try {
+            await sendToGoogleSheets(data);
+            googleSheetsSuccess = true;
+            showNotification('¡Formulario enviado exitosamente a Google Sheets!', 'success');
+        } catch (googleError) {
+            console.error('Error enviando a Google Sheets:', googleError);
+            showNotification('Error enviando a Google Sheets. Guardando localmente...', 'warning');
+        }
+        
+        // Guardar en localStorage como respaldo
         const submissions = JSON.parse(localStorage.getItem('formSubmissions') || '[]');
         submissions.push(data);
         localStorage.setItem('formSubmissions', JSON.stringify(submissions));
@@ -847,8 +939,9 @@ async function handleFormSubmit(e) {
         // Generar y descargar CSV
         generateAndDownloadCSV(submissions);
         
-        // Mostrar éxito
-        showNotification('¡Formulario enviado exitosamente! Los datos se han guardado localmente.', 'success');
+        if (!googleSheetsSuccess) {
+            showNotification('Datos guardados localmente. Revisa la configuración de Google Sheets.', 'warning');
+        }
         
         // Resetear formulario
         form.reset();
