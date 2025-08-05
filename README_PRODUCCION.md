@@ -10,6 +10,37 @@ Esta versión del formulario funciona **completamente en el navegador** sin nece
 - ✅ **Guardar datos localmente** en el dispositivo
 - ✅ **Descargar respuestas** en formato CSV
 
+## 🔒 **Configuración Segura de API Key**
+
+### **⚠️ Importante - Seguridad:**
+La API Key de Google está configurada de forma segura para que **NO se suba a GitHub**.
+
+### **📋 Configuración Inicial:**
+1. **Copiar archivo de ejemplo:**
+   ```bash
+   cp config.example.js config.js
+   ```
+
+2. **Editar config.js:**
+   ```javascript
+   const CONFIG = {
+       GOOGLE_API_KEY: 'TU_API_KEY_REAL_AQUI',
+       GOOGLE_SHEET_ID: 'TU_SHEET_ID_AQUI'
+   };
+   ```
+
+3. **Reemplazar con tus credenciales reales**
+
+### **🔒 Archivos Protegidos:**
+- `config.js` - **NO se sube a GitHub**
+- `config.example.js` - Se sube como ejemplo
+- `.gitignore` - Protege archivos sensibles
+
+### **✅ Verificar Configuración:**
+- El archivo `config.js` debe existir localmente
+- Las credenciales deben ser correctas
+- El formulario debe funcionar sin errores
+
 ## 📱 **Cómo Usar**
 
 ### **Para los Usuarios (Candidatos):**

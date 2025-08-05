@@ -13,6 +13,16 @@ yarn-error.log*
 
 # Credenciales de Google
 credentials.json
+key.json
+*.json
+!package.json
+!package-lock.json
+
+# Archivos de configuración
+config.js
+config.json
+api-keys.js
+secrets.js
 
 # Archivos subidos
 uploads/*
