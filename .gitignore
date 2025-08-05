@@ -16,7 +16,6 @@ credentials.json
 key.json
 
 # Archivos de configuración específicos
-config.js
 config.local.js
 config.json
 api-keys.js
