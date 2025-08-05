@@ -1,9 +1,10 @@
 // Configuración de Google Sheets API
-// ⚠️ IMPORTANTE: Este archivo contiene credenciales reales para GitHub Pages
+// ⚠️ IMPORTANTE: Este archivo NO se sube a GitHub por seguridad
+// ⚠️ IMPORTANTE: Reemplazar con tus credenciales reales antes de usar
 
 const CONFIG = {
-    GOOGLE_API_KEY: 'AIzaSyC0kwwlL4-9OJrzh-l9GhvQ7yo2rFBTvRo',
-    GOOGLE_SHEET_ID: '1mBN9A0nxgza0im64VTXVyqwYVQ9mpXyKWBCVZvcUN7U'
+    GOOGLE_API_KEY: 'TU_API_KEY_REAL_AQUI',
+    GOOGLE_SHEET_ID: 'TU_SHEET_ID_REAL_AQUI'
 };
 
 // Exportar configuración

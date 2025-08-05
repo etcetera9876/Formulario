@@ -1,6 +1,6 @@
-// Configuración de Google Sheets (desde archivo externo config.js)
-const GOOGLE_SHEET_ID = window.CONFIG ? window.CONFIG.GOOGLE_SHEET_ID : 'TU_SHEET_ID_REAL_AQUI';
-const GOOGLE_API_KEY = window.CONFIG ? window.CONFIG.GOOGLE_API_KEY : 'TU_API_KEY_REAL_AQUI';
+// Configuración de Google Sheets (desde variables de entorno de Netlify)
+const GOOGLE_SHEET_ID = process.env.GOOGLE_SHEET_ID || window.CONFIG?.GOOGLE_SHEET_ID || 'TU_SHEET_ID_REAL_AQUI';
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || window.CONFIG?.GOOGLE_API_KEY || 'TU_API_KEY_REAL_AQUI';
 
 // Función para cargar Google Sheets API
 function loadGoogleSheetsAPI() {

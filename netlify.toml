@@ -1,6 +1,10 @@
 [build]
   publish = "."
 
+[build.environment]
+  GOOGLE_API_KEY = "AIzaSyC0kwwlL4-9OJrzh-l9GhvQ7yo2rFBTvRo"
+  GOOGLE_SHEET_ID = "1mBN9A0nxgza0im64VTXVyqwYVQ9mpXyKWBCVZvcUN7U"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
