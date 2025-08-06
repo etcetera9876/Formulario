@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba de Google Sheets API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .status {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .info { background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        pre {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Prueba de Google Sheets API</h1>
+        
+        <div id="config-status" class="status info">
+            Verificando configuración...
+        </div>
+        
+        <div id="api-status" class="status info">
+            Verificando API...
+        </div>
+        
+        <div id="sheet-status" class="status info">
+            Verificando Google Sheet...
+        </div>
+        
+        <div id="test-status" class="status info">
+            Listo para probar...
+        </div>
+        
+        <div style="margin: 20px 0;">
+            <button onclick="testReadSheet()">📖 Probar Lectura del Sheet</button>
+            <button onclick="testWriteSheet()">✍️ Probar Escritura al Sheet</button>
+            <button onclick="clearResults()">🗑️ Limpiar Resultados</button>
+        </div>
+        
+        <div id="results"></div>
+    </div>
+
+    <script src="config.public.js"></script>
+    <script>
+        // Configuración
+        const GOOGLE_SHEET_ID = window.CONFIG ? window.CONFIG.GOOGLE_SHEET_ID : 'TU_SHEET_ID_REAL_AQUI';
+        const GOOGLE_API_KEY = window.CONFIG ? window.CONFIG.GOOGLE_API_KEY : 'TU_API_KEY_REAL_AQUI';
+        
+        // Elementos del DOM
+        const configStatus = document.getElementById('config-status');
+        const apiStatus = document.getElementById('api-status');
+        const sheetStatus = document.getElementById('sheet-status');
+        const testStatus = document.getElementById('test-status');
+        const results = document.getElementById('results');
+        
+        // Verificar configuración
+        function checkConfig() {
+            if (GOOGLE_API_KEY && GOOGLE_API_KEY !== 'TU_API_KEY_REAL_AQUI') {
+                configStatus.className = 'status success';
+                configStatus.innerHTML = '✅ API Key configurada correctamente';
+            } else {
+                configStatus.className = 'status error';
+                configStatus.innerHTML = '❌ API Key no configurada o incorrecta';
+            }
+            
+            if (GOOGLE_SHEET_ID && GOOGLE_SHEET_ID !== 'TU_SHEET_ID_REAL_AQUI') {
+                sheetStatus.className = 'status success';
+                sheetStatus.innerHTML = '✅ Sheet ID configurado correctamente';
+            } else {
+                sheetStatus.className = 'status error';
+                sheetStatus.innerHTML = '❌ Sheet ID no configurado o incorrecto';
+            }
+        }
+        
+        // Cargar Google Sheets API
+        function loadGoogleSheetsAPI() {
+            return new Promise((resolve, reject) => {
+                // Si ya está cargado, verificar que sheets esté disponible
+                if (window.gapi && window.gapi.client && window.gapi.client.sheets) {
+                    apiStatus.className = 'status success';
+                    apiStatus.innerHTML = '✅ Google Sheets API ya cargada';
+                    resolve(window.gapi);
+                    return;
+                }
+                
+                // Si gapi existe pero no sheets, intentar cargar sheets
+                if (window.gapi && window.gapi.client) {
+                    window.gapi.client.load('sheets', 'v4', () => {
+                        apiStatus.className = 'status success';
+                        apiStatus.innerHTML = '✅ Google Sheets API cargada correctamente';
+                        resolve(window.gapi);
+                    }).catch(error => {
+                        apiStatus.className = 'status error';
+                        apiStatus.innerHTML = `❌ Error cargando Sheets API: ${error.message}`;
+                        reject(error);
+                    });
+                    return;
+                }
+                
+                // Cargar desde cero
+                const script = document.createElement('script');
+                script.src = 'https://apis.google.com/js/api.js';
+                script.onload = () => {
+                    window.gapi.load('client', () => {
+                        window.gapi.client.init({
+                            'apiKey': GOOGLE_API_KEY,
+                            'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+                        }).then(() => {
+                            // Cargar específicamente la API de Sheets
+                            return window.gapi.client.load('sheets', 'v4');
+                        }).then(() => {
+                            apiStatus.className = 'status success';
+                            apiStatus.innerHTML = '✅ Google Sheets API cargada correctamente';
+                            resolve(window.gapi);
+                        }).catch(error => {
+                            apiStatus.className = 'status error';
+                            apiStatus.innerHTML = `❌ Error cargando API: ${error.message}`;
+                            reject(error);
+                        });
+                    });
+                };
+                script.onerror = (error) => {
+                    apiStatus.className = 'status error';
+                    apiStatus.innerHTML = '❌ Error cargando script de Google API';
+                    reject(error);
+                };
+                document.head.appendChild(script);
+            });
+        }
+        
+        // Probar lectura del sheet
+        async function testReadSheet() {
+            try {
+                testStatus.className = 'status info';
+                testStatus.innerHTML = '🔄 Probando lectura del sheet...';
+                
+                await loadGoogleSheetsAPI();
+                
+                const response = await window.gapi.client.sheets.spreadsheets.get({
+                    spreadsheetId: GOOGLE_SHEET_ID
+                });
+                
+                testStatus.className = 'status success';
+                testStatus.innerHTML = '✅ Lectura exitosa del Google Sheet';
+                
+                addResult('📖 LECTURA EXITOSA', {
+                    title: response.result.properties.title,
+                    sheets: response.result.sheets.map(sheet => sheet.properties.title),
+                    lastModified: new Date(response.result.properties.updated).toLocaleString()
+                });
+                
+            } catch (error) {
+                testStatus.className = 'status error';
+                testStatus.innerHTML = `❌ Error en lectura: ${error.message}`;
+                
+                addResult('❌ ERROR EN LECTURA', {
+                    error: error.message,
+                    status: error.status,
+                    code: error.code
+                });
+            }
+        }
+        
+        // Probar escritura al sheet
+        async function testWriteSheet() {
+            try {
+                testStatus.className = 'status info';
+                testStatus.innerHTML = '🔄 Probando escritura al sheet...';
+                
+                await loadGoogleSheetsAPI();
+                
+                const testData = [
+                    new Date().toLocaleString(),
+                    'PRUEBA',
+                    'test@example.com',
+                    '123-456-7890',
+                    '01/01/1990',
+                    'Otro',
+                    'Test City',
+                    '',
+                    'Lunes, Martes',
+                    'Mañana',
+                    'Sí',
+                    'Sí',
+                    'No',
+                    '',
+                    'Sí',
+                    'No',
+                    'Sí',
+                    'Sí',
+                    'Ninguno',
+                    'Ninguno',
+                    'test.pdf',
+                    'Esta es una prueba de escritura'
+                ];
+                
+                const response = await window.gapi.client.sheets.spreadsheets.values.append({
+                    spreadsheetId: GOOGLE_SHEET_ID,
+                    range: 'A:V',
+                    valueInputOption: 'RAW',
+                    insertDataOption: 'INSERT_ROWS',
+                    resource: {
+                        values: [testData]
+                    }
+                });
+                
+                testStatus.className = 'status success';
+                testStatus.innerHTML = '✅ Escritura exitosa al Google Sheet';
+                
+                addResult('✍️ ESCRITURA EXITOSA', {
+                    updatedRange: response.result.updates.updatedRange,
+                    updatedRows: response.result.updates.updatedRows,
+                    updatedColumns: response.result.updates.updatedColumns,
+                    updatedCells: response.result.updates.updatedCells
+                });
+                
+            } catch (error) {
+                testStatus.className = 'status error';
+                testStatus.innerHTML = `❌ Error en escritura: ${error.message}`;
+                
+                addResult('❌ ERROR EN ESCRITURA', {
+                    error: error.message,
+                    status: error.status,
+                    code: error.code,
+                    suggestion: getErrorSuggestion(error)
+                });
+            }
+        }
+        
+        // Obtener sugerencia de error
+        function getErrorSuggestion(error) {
+            if (error.status === 403) {
+                return 'Verifica que el Google Sheet esté configurado como "Cualquier persona con el enlace puede ver"';
+            } else if (error.status === 400) {
+                return 'Verifica que la API Key sea correcta y tenga permisos para Google Sheets API';
+            } else if (error.status === 401) {
+                return 'Verifica que la API Key sea válida';
+            }
+            return 'Revisa la configuración general';
+        }
+        
+        // Agregar resultado
+        function addResult(title, data) {
+            const resultDiv = document.createElement('div');
+            resultDiv.style.margin = '20px 0';
+            resultDiv.style.padding = '15px';
+            resultDiv.style.border = '1px solid #ddd';
+            resultDiv.style.borderRadius = '5px';
+            resultDiv.style.backgroundColor = '#f9f9f9';
+            
+            resultDiv.innerHTML = `
+                <h3>${title}</h3>
+                <pre>${JSON.stringify(data, null, 2)}</pre>
+            `;
+            
+            results.appendChild(resultDiv);
+        }
+        
+        // Limpiar resultados
+        function clearResults() {
+            results.innerHTML = '';
+        }
+        
+        // Inicializar
+        checkConfig();
+        loadGoogleSheetsAPI().catch(() => {
+            // Error ya manejado en loadGoogleSheetsAPI
+        });
+    </script>
+</body>
+</html> 
+</html> 

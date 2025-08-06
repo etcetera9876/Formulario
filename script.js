@@ -5,11 +5,21 @@ const GOOGLE_API_KEY = window.CONFIG ? window.CONFIG.GOOGLE_API_KEY : 'TU_API_KE
 // Función para cargar Google Sheets API
 function loadGoogleSheetsAPI() {
     return new Promise((resolve, reject) => {
-        if (window.gapi) {
+        // Si ya está cargado y sheets está disponible
+        if (window.gapi && window.gapi.client && window.gapi.client.sheets) {
             resolve(window.gapi);
             return;
         }
         
+        // Si gapi existe pero no sheets, intentar cargar sheets
+        if (window.gapi && window.gapi.client) {
+            window.gapi.client.load('sheets', 'v4', () => {
+                resolve(window.gapi);
+            }).catch(reject);
+            return;
+        }
+        
+        // Cargar desde cero
         const script = document.createElement('script');
         script.src = 'https://apis.google.com/js/api.js';
         script.onload = () => {
@@ -17,6 +27,9 @@ function loadGoogleSheetsAPI() {
                 window.gapi.client.init({
                     'apiKey': GOOGLE_API_KEY,
                     'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+                }).then(() => {
+                    // Cargar específicamente la API de Sheets
+                    return window.gapi.client.load('sheets', 'v4');
                 }).then(() => {
                     resolve(window.gapi);
                 }).catch(reject);
@@ -943,13 +956,24 @@ async function handleFormSubmit(e) {
         
         // Intentar enviar a Google Sheets
         let googleSheetsSuccess = false;
+        let googleSheetsError = null;
+        
         try {
             await sendToGoogleSheets(data);
             googleSheetsSuccess = true;
             showNotification('¡Formulario enviado exitosamente a Google Sheets!', 'success');
         } catch (googleError) {
             console.error('Error enviando a Google Sheets:', googleError);
-            showNotification('Google Sheets temporalmente no disponible. Guardando localmente...', 'warning');
+            googleSheetsError = googleError.message;
+            
+            // Mostrar error específico
+            if (googleError.message.includes('403')) {
+                showNotification('Error 403: Verifica los permisos del Google Sheet. Revisa SOLUCION_403.md', 'error');
+            } else if (googleError.message.includes('400')) {
+                showNotification('Error 400: Verifica la configuración de la API Key', 'error');
+            } else {
+                showNotification(`Error de Google Sheets: ${googleError.message}`, 'error');
+            }
         }
         
         // Guardar en localStorage como respaldo
@@ -957,11 +981,9 @@ async function handleFormSubmit(e) {
         submissions.push(data);
         localStorage.setItem('formSubmissions', JSON.stringify(submissions));
         
-        // Generar y descargar CSV
-        generateAndDownloadCSV(submissions);
-        
         if (!googleSheetsSuccess) {
-            showNotification('Datos guardados localmente. Revisa la configuración de Google Sheets.', 'warning');
+            showNotification('✅ Datos guardados localmente como respaldo. ❌ Error en Google Sheets.', 'warning');
+            console.log('📋 Datos guardados en localStorage. Error de Google Sheets:', googleSheetsError);
         }
         
         // Resetear formulario
@@ -1494,4 +1516,5 @@ function setupMovilidadLogic() {
             }
         });
     });
+} 
 } 

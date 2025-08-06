@@ -1,0 +1,34 @@
+{
+  "name": "formulario-pre-aplicacion",
+  "version": "1.0.0",
+  "description": "Formulario de pre-aplicación para JobConnection Services",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -o",
+    "dev": "npx live-server --port=8000 --open=/",
+    "serve": "python -m http.server 8000",
+    "build": "echo 'No build process needed for static files'",
+    "test": "echo 'No tests specified'",
+    "config:dev": "node switch-config.js development",
+    "config:prod": "node switch-config.js production"
+  },
+  "keywords": [
+    "formulario",
+    "pre-aplicacion",
+    "jobconnection",
+    "html",
+    "css",
+    "javascript"
+  ],
+  "author": "JobConnection Services",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+} 
